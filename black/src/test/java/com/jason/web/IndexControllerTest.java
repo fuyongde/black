@@ -12,14 +12,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-/**
- * IndexController Tester.
- *
- * @author <Authors name>
- * @version 1.0
- * @since <pre>Oct 14, 2016</pre>
- */
 @RunWith(SpringRunner.class)
 @WebMvcTest(IndexController.class)
 public class IndexControllerTest {
@@ -27,14 +19,10 @@ public class IndexControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    /**
-     * Method: index()
-     */
     @Test
     public void testIndex() throws Exception {
         this.mvc.perform(get("/index").accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk()).andExpect(content().string("Hello, Spring Boot!"));
     }
 
-
-} 
+}
