@@ -1,5 +1,3 @@
-# **Hello, Spring Boot**
-
 ### Spring Boot 简介
 
 　　通过使用Spring Boot，我们可以轻松的构建单独的、生产级的可以”即时运行“的Spring应用程序。使用Spring Boot可以从最小化的依赖开始构建我们的程序，大多数的Spring Boot应用程序只需要非常少的配置即可运行。
@@ -46,7 +44,7 @@
 
 　　在对Spring Boot有个简单的认识后，让我们开始构建基于Spring Boot的应用程序吧。
 
-1、在工程的`pom.xml`中添加依赖：
+1、实用Maven构建一个工程，在工程的`pom.xml`中添加依赖：
 
 ```
 <parent>
@@ -62,13 +60,12 @@
 </dependencies>
 ```
 
-2、创建`IndexController.java`
+2、在`src\main\java\com\jason\web`目录下创建`IndexController.java`
 
 ```
 package com.jason.web;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -81,7 +78,7 @@ public class IndexController {
 }
 ```
 
-3、创建启动类`Application.java`
+3、在`src\main\java\com\jason`目录下创建启动类`Application.java`
 
 ```
 package com.jason;
@@ -91,8 +88,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-@ComponentScan
-@EnableAutoConfiguration
+@SpringBootApplication
 public class Application {
 
     public static void main(String[] args) throws Exception {
@@ -103,5 +99,5 @@ public class Application {
 4、运行`Application.java`中的main方法，应用程序正常启动后，打开浏览器，在地址栏输入`http://localhost:8080/index`即可[访问](http://localhost:8080/index)。
 
 
-
+本文示例程序请[点此](https://github.com/fuyongde/black/tree/black01)获取。
 详细资料请参考[Spring Boot官网](http://projects.spring.io/spring-boot/)。
