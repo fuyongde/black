@@ -1,6 +1,5 @@
 # 在Spring Boot中如何使用Spring Data Jpa？
-
-Spring框架对SQL数据库提供了广泛的支持。本文介绍如何在Spring Boot中使用Spring Data Jpa来访问MySQL数据库。
+　　Spring框架对SQL数据库提供了广泛的支持。本文介绍如何在Spring Boot中使用Spring Data Jpa来访问MySQL数据库。
 
 ### 准备工作
 
@@ -15,30 +14,30 @@ Spring框架对SQL数据库提供了广泛的支持。本文介绍如何在Sprin
 　　在[上文](http://www.jianshu.com/p/fac64c59b2f0)的例子的基础上，我们在工程的`pom.xml`文件中添加`spring-boot-starter-data-jpa`和`mysql-connector-java`的依赖。
 
 ```
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>5.1.39</version>
-    </dependency>
+<dependency>
+　　<groupId>org.springframework.boot</groupId>
+　　<artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+<dependency>
+　　<groupId>mysql</groupId>
+　　<artifactId>mysql-connector-java</artifactId>
+　　<version>5.1.39</version>
+</dependency>
 ```
 
-同时添加常用的第三方库`apache-commons-lang3`和`google-guava`
+　　同时添加常用的第三方库`apache-commons-lang3`和`google-guava`
 
 ```
-　　　　　<dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>19.0</version>
-        </dependency>
+<dependency>
+　　<groupId>org.apache.commons</groupId>
+　　<artifactId>commons-lang3</artifactId>
+　　<version>3.4</version>
+</dependency>
+<dependency>
+　　<groupId>com.google.guava</groupId>
+　　<artifactId>guava</artifactId>
+　　<version>19.0</version>
+</dependency>
 ```
 
 
