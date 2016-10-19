@@ -1,5 +1,7 @@
 package com.jason.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jason.entity.Region;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +14,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -36,5 +39,12 @@ public class RegionRestControllerTest {
                 .andExpect(jsonPath("$.name").value("北京市"));
     }
 
+    @Test
+    public void testCreate() throws Exception {
+        String param = "{\"id\": 99999999,\"parentId\":0,\"name\":\"测试\",\"level\":1}";
+        this.mvc.perform(post("/api/regions").content(param).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", "http://localhost/api/regions/99999999"));
+    }
 
 } 

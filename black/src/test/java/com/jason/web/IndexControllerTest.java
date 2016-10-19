@@ -22,7 +22,8 @@ public class IndexControllerTest {
     @Test
     public void testIndex() throws Exception {
         this.mvc.perform(get("/index").accept(MediaType.TEXT_PLAIN))
-                .andExpect(status().isOk()).andExpect(content().string("Hello, Spring Boot!"));
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, Spring Boot!"));
     }
 
 }

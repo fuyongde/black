@@ -17,4 +17,9 @@ public class RegionServiceImpl implements RegionService {
     public Region getById(Integer id) {
         return regionDao.findOne(id);
     }
+
+    @Override
+    public void createRegion(Region region) {
+        regionDao.save(region);
+    }
 }

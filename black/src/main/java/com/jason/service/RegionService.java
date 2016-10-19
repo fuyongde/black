@@ -4,4 +4,6 @@ import com.jason.entity.Region;
 
 public interface RegionService {
     Region getById(Integer id);
+
+    void createRegion(Region region);
 }
