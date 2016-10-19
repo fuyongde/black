@@ -40,11 +40,19 @@
 </dependency>
 ```
 
+​	2、在`application.properties`文件中添加数据库连接信息
 
+```
+#MySQL Configuration
+spring.datasource.url=jdbc:mysql://localhost/quickstart
+spring.datasource.username=root
+spring.datasource.password=fuyongde
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+```
 
-　　2、在`src\main\java\com\jason\entity`目录下编写`Region.java`实体类，代码冗余，详见本文[例子程序](https://github.com/fuyongde/black/tree/black04)。
+　　3、在`src\main\java\com\jason\entity`目录下编写`Region.java`实体类，代码冗余，详见本文[例子程序](https://github.com/fuyongde/black/tree/black04)。
 
-　　3、在`src\main\java\com\jason\repository`目录下编写Dao层的接口。由于Spring Data JPA实现了大量的方法，我们按如下方式写即可。
+　　4、在`src\main\java\com\jason\repository`目录下编写Dao层的接口。由于Spring Data JPA实现了大量的方法，我们按如下方式写即可。
 
 ```
 package com.jason.repository;
@@ -58,7 +66,7 @@ public interface RegionDao extends PagingAndSortingRepository<Region, Integer>, 
 }
 ```
 
-　　4、在`src\main\java\com\jason\service`目录项编写Service层的接口及其实现类。此处只贴实现类相关的代码，详见本文[例子程序](https://github.com/fuyongde/black/tree/black04)。
+　　5、在`src\main\java\com\jason\service`目录项编写Service层的接口及其实现类。此处只贴实现类相关的代码，详见本文[例子程序](https://github.com/fuyongde/black/tree/black04)。
 
 ```
 package com.jason.service.impl;
@@ -83,7 +91,7 @@ public class RegionServiceImpl implements RegionService {
 }
 ```
 
-　　5、在`src\main\java\com\jason\rest`目录编写Controller层代码。此处我们遵循Restful风格的编码，Restful风格的编码详见[Oracle网站](http://www.oracle.com/technetwork/articles/javase/index-137171.html)以及[Rest API Tutorial](http://www.restapitutorial.com/index.html)。
+　　6、在`src\main\java\com\jason\rest`目录编写Controller层代码。此处我们遵循Restful风格的编码，Restful风格的编码详见[Oracle网站](http://www.oracle.com/technetwork/articles/javase/index-137171.html)以及[Rest API Tutorial](http://www.restapitutorial.com/index.html)。
 
 ```
 package com.jason.rest;
@@ -109,7 +117,7 @@ public class RegionRestController {
 }
 ```
 
-　　6、运行该程序，访问`http://localhost:8080/black/api/regions/110000`，即可看到北京的地区信息。
+　　7、运行该程序，访问`http://localhost:8080/black/api/regions/110000`，即可看到北京的地区信息。
 
 ```
 {
