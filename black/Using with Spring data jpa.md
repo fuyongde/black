@@ -1,4 +1,5 @@
 # 在Spring Boot中如何使用Spring Data Jpa？
+
 　　Spring框架对SQL数据库提供了广泛的支持。本文介绍如何在Spring Boot中使用Spring Data Jpa来访问MySQL数据库。
 
 ### 准备工作

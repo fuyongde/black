@@ -1,7 +1,5 @@
 package com.jason.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jason.entity.Region;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
