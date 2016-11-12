@@ -1,4 +1,4 @@
-package com.jason.repository;
+package com.jason.repository.jpa;
 
 import com.jason.entity.Region;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

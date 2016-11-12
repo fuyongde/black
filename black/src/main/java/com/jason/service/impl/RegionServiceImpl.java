@@ -1,7 +1,7 @@
 package com.jason.service.impl;
 
 import com.jason.entity.Region;
-import com.jason.repository.RegionDao;
+import com.jason.repository.jpa.RegionDao;
 import com.jason.service.RegionService;
 import org.springframework.stereotype.Service;
 
