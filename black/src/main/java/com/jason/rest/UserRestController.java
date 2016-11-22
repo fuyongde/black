@@ -1,6 +1,5 @@
 package com.jason.rest;
 
-import com.jason.entity.Region;
 import com.jason.entity.User;
 import com.jason.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +43,5 @@ public class UserRestController {
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
-    
+
 }
