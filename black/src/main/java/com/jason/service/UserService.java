@@ -10,4 +10,6 @@ public interface UserService {
     User register(String username, String password);
 
     User getById(String id);
+
+    void testServiceException();
 }

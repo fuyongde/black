@@ -9,8 +9,11 @@ import com.jason.service.UserService;
 import com.jason.utils.Digests;
 import com.jason.utils.Encodes;
 import com.jason.utils.Identities;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -24,12 +27,15 @@ public class UserServiceImpl implements UserService {
     public static final int HASH_INTERATIONS = 1024;
     private static final int SALT_SIZE = 8;
 
+    private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserDao userDao;
     @Autowired
     private UsernamePasswordAuthDao usernamePasswordAuthDao;
 
     @Override
+    @Transactional
     public User register(String username, String password) {
         //先判断用户名是否存在
         UsernamePasswordAuth auth = usernamePasswordAuthDao.findByUsername(username);
@@ -54,6 +60,7 @@ public class UserServiceImpl implements UserService {
         try {
             usernamePasswordAuth.setPassword(entryptPassword(password, salt));
         } catch (NoSuchAlgorithmException e) {
+            logger.error("Create user error, the Exception message is {}", e.getMessage());
             throw new ServiceException();
         }
         usernamePasswordAuth.setSalt(Encodes.encodeHex(salt));
@@ -66,6 +73,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(String id) {
         return userDao.findOne(id);
+    }
+
+    @Override
+    public void testServiceException() {
+        throw new ServiceException(100000);
     }
 
     /**
