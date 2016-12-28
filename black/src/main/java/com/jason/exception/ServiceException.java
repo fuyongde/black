@@ -1,14 +1,13 @@
 package com.jason.exception;
 
+import com.google.common.base.Charsets;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.JSON_STYLE;
@@ -28,11 +27,10 @@ public class ServiceException extends RuntimeException {
     private static Properties properties = new Properties();
 
     static {
-        InputStream is = ServiceException.class.getResourceAsStream("/error.properties");
         try {
-            properties.load(is);
+            properties.load(new InputStreamReader(ServiceException.class.getResourceAsStream("/error.properties"), Charsets.UTF_8));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
     }

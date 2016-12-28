@@ -1,5 +1,7 @@
 package com.jason.handler;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +10,9 @@ import java.io.Serializable;
 public class ErrorResult implements Serializable {
     int errorCode;
     String errorMessage;
+
+    public ErrorResult() {
+    }
 
     public ErrorResult(int errorCode, String errorMessage) {
         this.errorCode = errorCode;
@@ -29,4 +34,10 @@ public class ErrorResult implements Serializable {
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 }
+

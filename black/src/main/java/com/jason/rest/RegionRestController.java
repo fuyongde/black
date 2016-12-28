@@ -1,5 +1,6 @@
 package com.jason.rest;
 
+import com.jason.dto.RegionDto;
 import com.jason.entity.Region;
 import com.jason.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/regions")
@@ -18,9 +20,27 @@ public class RegionRestController {
     @Autowired
     private RegionService regionService;
 
+    /**
+     * 根据id获取地区信息
+     *
+     * @param id 地区id
+     * @return
+     */
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Region getRegionById(@PathVariable("id") Integer id) {
-        Region result = regionService.getById(id);
+    public RegionDto getRegionById(@PathVariable("id") Integer id) {
+        RegionDto result = regionService.getById(id);
+        return result;
+    }
+
+    /**
+     * 根据父级id，获取地区列表
+     *
+     * @param parentId 父级id
+     * @return
+     */
+    @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<RegionDto> getRegionByParentId(@RequestParam(name = "parentId") Integer parentId) {
+        List<RegionDto> result = regionService.getByParentId(parentId);
         return result;
     }
 

@@ -1,9 +1,15 @@
 package com.jason.service;
 
+import com.jason.dto.RegionDto;
 import com.jason.entity.Region;
 
+import java.util.List;
+
 public interface RegionService {
-    Region getById(Integer id);
+
+    RegionDto getById(Integer id);
 
     void createRegion(Region region);
+
+    List<RegionDto> getByParentId(Integer parentId);
 }

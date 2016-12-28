@@ -1,25 +1,23 @@
-package com.jason.entity;
+package com.jason.dto;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.List;
 
-@Entity
-public class Region implements Serializable {
-    @Id
+/**
+ * Created by fuyongde on 2016/12/28.
+ */
+public class RegionDto implements Serializable {
+
     private Integer id;
-    @Column(name = "parent_id")
     private Integer parentId;
-    @Column(name = "name")
     private String name;
-    @Column(name = "level")
     private Integer level;
-    @Column(name = "leaf")
     private Boolean leaf;
+
+    private List<RegionDto> child;
 
     public Integer getId() {
         return id;
@@ -61,8 +59,16 @@ public class Region implements Serializable {
         this.leaf = leaf;
     }
 
+    public List<RegionDto> getChild() {
+        return child;
+    }
+
+    public void setChild(List<RegionDto> child) {
+        this.child = child;
+    }
+
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 }
