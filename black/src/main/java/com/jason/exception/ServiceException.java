@@ -17,8 +17,6 @@ import static org.apache.commons.lang3.builder.ToStringStyle.JSON_STYLE;
  */
 public class ServiceException extends RuntimeException {
 
-    public HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-
     private int errorCode;
     private String errorMessage;
 

@@ -2,6 +2,7 @@ package com.jason.handler;
 
 import com.jason.exception.ServiceException;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,7 +24,7 @@ public class ServiceExceptionHandler extends ResponseEntityExceptionHandler {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         ErrorResult errorResult = new ErrorResult(ex.getErrorCode(), ex.getErrorMessage());
-        return handleExceptionInternal(ex, errorResult, headers, ex.status, request);
+        return handleExceptionInternal(ex, errorResult, headers, HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
 }

@@ -5,43 +5,42 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jason.dto.RegionDto;
 import com.jason.handler.ErrorResult;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by fuyongde on 2016/12/28.
+ * Created by fuyongde on 2016/12/29.
  */
-public class GetExample {
+public class PostExample {
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
     OkHttpClient client = new OkHttpClient();
 
-    Response run(String url) throws IOException {
+    Response post(String url) throws IOException {
+        RequestBody body = new FormBody.Builder().add("username", "chenmiaoshao").add("password", "chenmiaoshan").build();
         Request request = new Request.Builder()
                 .url(url)
+                .post(body)
                 .build();
-
-        return client.newCall(request).execute();
+        Response response = client.newCall(request).execute();
+        return response;
     }
 
     public static void main(String[] args) throws IOException {
-        GetExample example = new GetExample();
+        PostExample example = new PostExample();
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-        Response response = example.run("http://localhost:8080/black/api/users/test");
+        Response response = example.post("http://localhost:8080/black/api/users");
         if (response.isSuccessful()) {
-            String result = response.body().string();
-            JavaType javaType = mapper.getTypeFactory().constructCollectionType(List.class, RegionDto.class);
-            List<RegionDto> regionDtos = mapper.readValue(result, javaType);
-            regionDtos.forEach(System.out::print);
+            String location = response.header("Location");
+            System.out.println(location);
         } else if (response.code() == HttpStatus.INTERNAL_SERVER_ERROR.value()){
             String error = response.body().string();
             ErrorResult errorResult = mapper.readValue(error, ErrorResult.class);
             System.out.println(errorResult);
         }
-
     }
 }
