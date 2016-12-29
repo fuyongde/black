@@ -20,7 +20,7 @@ public class PostExample {
     OkHttpClient client = new OkHttpClient();
 
     Response post(String url) throws IOException {
-        RequestBody body = new FormBody.Builder().add("username", "chenmiaoshao").add("password", "chenmiaoshan").build();
+        RequestBody body = new FormBody.Builder().add("username", "fuhongwei").add("password", "fuhongwei").build();
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)

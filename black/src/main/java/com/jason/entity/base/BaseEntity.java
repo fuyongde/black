@@ -1,8 +1,11 @@
 package com.jason.entity.base;
 
+import javax.persistence.MappedSuperclass;
+
 /**
  * Created by fuyongde on 2016/11/12.
  */
+@MappedSuperclass
 public class BaseEntity {
 
     private long created;
