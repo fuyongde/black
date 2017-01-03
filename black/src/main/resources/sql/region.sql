@@ -3,6 +3,7 @@ SQLyog Ultimate v12.08 (64 bit)
 MySQL - 5.6.34 
 *********************************************************************
 */
+use quickstart;
 /*!40101 SET NAMES utf8 */;
 
 create table `region` (

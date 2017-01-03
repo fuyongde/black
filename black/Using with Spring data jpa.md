@@ -56,9 +56,9 @@ spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 　　4、在`src\main\java\com\jason\repository`目录下编写Dao层的接口。由于Spring Data JPA实现了大量的方法，我们按如下方式写即可。
 
 ```
-package com.jason.repository;
+package com.jason.black.repository;
 
-import com.jason.entity.Region;
+import com.jason.black.entity.Region;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -70,11 +70,11 @@ public interface RegionDao extends PagingAndSortingRepository<Region, Integer>, 
 　　5、在`src\main\java\com\jason\service`目录项编写Service层的接口及其实现类。此处只贴实现类相关的代码，详见本文[例子程序](https://github.com/fuyongde/black/tree/black04)。
 
 ```
-package com.jason.service.impl;
+package com.jason.black.service.impl;
 
-import com.jason.entity.Region;
-import com.jason.repository.jpa.RegionDao;
-import com.jason.service.RegionService;
+import com.jason.black.entity.Region;
+import com.jason.black.repository.jpa.RegionDao;
+import com.jason.black.service.RegionService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -95,10 +95,10 @@ public class RegionServiceImpl implements RegionService {
 　　6、在`src\main\java\com\jason\rest`目录编写Controller层代码。此处我们遵循Restful风格的编码，Restful风格的编码详见[Oracle网站](http://www.oracle.com/technetwork/articles/javase/index-137171.html)以及[Rest API Tutorial](http://www.restapitutorial.com/index.html)。
 
 ```
-package com.jason.rest;
+package com.jason.black.rest;
 
-import com.jason.entity.Region;
-import com.jason.service.RegionService;
+import com.jason.black.entity.Region;
+import com.jason.black.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -136,7 +136,7 @@ public class RegionRestController {
 ​	不同于[之前文章](http://www.jianshu.com/p/8364a18d6b1e)所写的测试方法，本文的单元测试需要配置`WebApplicationContext`，测试类如下。
 
 ```
-package com.jason.rest;
+package com.jason.black.rest;
 
 import org.junit.Before;
 import org.junit.Test;

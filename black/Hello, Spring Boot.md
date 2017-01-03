@@ -63,7 +63,7 @@
 2、在`src\main\java\com\jason\web`目录下创建`IndexController.java`
 
 ```
-package com.jason.web;
+package com.jason.black.web;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

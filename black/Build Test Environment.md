@@ -27,7 +27,7 @@
 在`test\java\com\jason\web`目录下新建`IndexControllerTest.java`文件。
 
 ```
-package com.jason.web;
+package com.jason.black.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
