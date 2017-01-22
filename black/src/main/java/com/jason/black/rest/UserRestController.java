@@ -1,5 +1,6 @@
 package com.jason.black.rest;
 
+import com.jason.black.dto.UserRegisterDto;
 import com.jason.black.entity.User;
 import com.jason.black.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,12 @@ public class UserRestController {
         return result;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> register(
-            @RequestParam(name = "username") String username,
-            @RequestParam(name = "password") String password,
+            @RequestBody UserRegisterDto userRegisterDto,
             UriComponentsBuilder uriBuilder
     ) {
-        User user = userService.register(username, password);
+        User user = userService.register(userRegisterDto.getUsername(), userRegisterDto.getPassword());
         // 按照Restful风格约定，创建指向新任务的url, 也可以直接返回id或对象.
         String id = user.getId();
         URI uri = uriBuilder.path("/api/users/" + id).build().toUri();

@@ -2,10 +2,11 @@ package com.jason.black.client;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jason.black.dto.RegionDto;
+import com.jason.black.dto.UserRegisterDto;
 import com.jason.black.handler.ErrorResult;
 import okhttp3.*;
-import org.springframework.http.HttpStatus;
+import okhttp3.MediaType;
+import org.springframework.http.*;
 
 import java.io.IOException;
 
@@ -13,17 +14,28 @@ import java.io.IOException;
  * Created by fuyongde on 2016/12/29.
  */
 public class PostExample {
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    public static final MediaType JSON = MediaType.parse(org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE);
 
     OkHttpClient client = new OkHttpClient();
 
     Response post(String url) throws IOException {
-        RequestBody body = new FormBody.Builder().add("username", "fuhongwei").add("password", "fuhongwei").build();
+        UserRegisterDto user = new UserRegisterDto();
+        user.setUsername("fuyongqi");
+        user.setPassword("fuyongqi");
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonParam = mapper.writeValueAsString(user);
+
+        RequestBody formBody = new FormBody.Builder().add("username", "fuhongwei").add("password", "fuhongwei").build();
+        RequestBody jsonBody = RequestBody.create(JSON, jsonParam);
+
         Request request = new Request.Builder()
                 .url(url)
-                .post(body)
+                .post(jsonBody)
                 .build();
+
         Response response = client.newCall(request).execute();
+
         return response;
     }
 
