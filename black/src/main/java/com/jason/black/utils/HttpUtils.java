@@ -14,11 +14,11 @@ import java.util.Map;
 /**
  * Created by fuyongde on 2017/3/13.
  */
-public class HttpHelper {
+public class HttpUtils {
 
-    public static final MediaType JSON = MediaType.parse(org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE);
+    private static final MediaType JSON = MediaType.parse(org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-    private static Logger logger = LoggerFactory.getLogger(HttpHelper.class);
+    private static Logger logger = LoggerFactory.getLogger(HttpUtils.class);
 
     public static Response get(String url) throws IOException {
         OkHttpClient client = new OkHttpClient();
