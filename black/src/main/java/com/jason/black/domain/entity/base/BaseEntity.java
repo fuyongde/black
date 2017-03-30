@@ -1,4 +1,4 @@
-package com.jason.black.entity.base;
+package com.jason.black.domain.entity.base;
 
 import javax.persistence.MappedSuperclass;
 

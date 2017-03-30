@@ -1,7 +1,7 @@
 package com.jason.black.service.impl;
 
-import com.jason.black.entity.User;
-import com.jason.black.entity.UsernamePasswordAuth;
+import com.jason.black.domain.entity.User;
+import com.jason.black.domain.entity.UsernamePasswordAuth;
 import com.jason.black.exception.ServiceException;
 import com.jason.black.repository.jpa.UserDao;
 import com.jason.black.repository.jpa.UsernamePasswordAuthDao;

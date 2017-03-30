@@ -1,6 +1,6 @@
 package com.jason.black.repository.jpa;
 
-import com.jason.black.entity.User;
+import com.jason.black.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

@@ -1,4 +1,4 @@
-package com.jason.black.dto;
+package com.jason.black.domain.dto;
 
 /**
  * Created by fuyongde on 2017/1/19.

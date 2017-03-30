@@ -1,9 +1,13 @@
 package com.jason.black.client;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.math.NumberUtils;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by fuyongde on 2017/1/20.
@@ -27,7 +31,45 @@ public class Test {
 
         nums.stream().distinct().filter(num->!Objects.isNull(num)).forEach(System.out::print);
 
-        
+        double a = 1245.345d;
+        double b = 1.0d;
+        double c = -23.0d;
+        double d = -123.23d;
+
+        System.out.println("");
+
+        System.out.println(String.valueOf(a));
+        System.out.println(String.valueOf(b));
+        System.out.println(String.valueOf(c));
+        System.out.println(String.valueOf(d));
+
+        DecimalFormat decimalFormat = new DecimalFormat("###################.###########");
+
+        System.out.println("a : " + isWholeNumber(decimalFormat.format(a)));
+        System.out.println("b : " + isWholeNumber(decimalFormat.format(b)));
+        System.out.println("c : " + isWholeNumber(decimalFormat.format(c)));
+        System.out.println("d : " + isWholeNumber(decimalFormat.format(d)));
+    }
+
+    private static boolean isMatch(String regex, String orginal){
+        if (orginal == null || orginal.trim().equals("")) {
+            return false;
+        }
+        Pattern pattern = Pattern.compile(regex);
+        Matcher isNum = pattern.matcher(orginal);
+        return isNum.matches();
+    }
+
+    public static boolean isPositiveInteger(String orginal) {
+        return isMatch("^\\+{0,1}[1-9]\\d*", orginal);
+    }
+
+    public static boolean isNegativeInteger(String orginal) {
+        return isMatch("^-[1-9]\\d*", orginal);
+    }
+
+    public static boolean isWholeNumber(String orginal) {
+        return isMatch("[+-]{0,1}0", orginal) || isPositiveInteger(orginal) || isNegativeInteger(orginal);
     }
 }
 

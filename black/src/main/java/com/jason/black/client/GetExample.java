@@ -3,7 +3,7 @@ package com.jason.black.client;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jason.black.dto.RegionDto;
+import com.jason.black.domain.dto.RegionDto;
 import com.jason.black.handler.ErrorResult;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

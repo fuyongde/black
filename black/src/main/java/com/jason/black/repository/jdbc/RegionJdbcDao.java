@@ -1,7 +1,7 @@
 package com.jason.black.repository.jdbc;
 
 import com.google.common.collect.Lists;
-import com.jason.black.entity.Region;
+import com.jason.black.domain.entity.Region;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;

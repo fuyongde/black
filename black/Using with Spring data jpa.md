@@ -58,7 +58,7 @@ spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 ```
 package com.jason.black.repository;
 
-import com.jason.black.entity.Region;
+import com.jason.black.domain.entity.Region;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -72,7 +72,7 @@ public interface RegionDao extends PagingAndSortingRepository<Region, Integer>, 
 ```
 package com.jason.black.service.impl;
 
-import com.jason.black.entity.Region;
+import com.jason.black.domain.entity.Region;
 import com.jason.black.repository.jpa.RegionDao;
 import com.jason.black.service.RegionService;
 import org.springframework.stereotype.Service;
@@ -97,7 +97,7 @@ public class RegionServiceImpl implements RegionService {
 ```
 package com.jason.black.rest;
 
-import com.jason.black.entity.Region;
+import com.jason.black.domain.entity.Region;
 import com.jason.black.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

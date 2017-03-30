@@ -19,7 +19,7 @@ public class ServiceExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * 处理ServiceException
      */
-    @ExceptionHandler(value = { ServiceException.class })
+    @ExceptionHandler(value = {ServiceException.class})
     public final ResponseEntity<?> handleException(ServiceException ex, WebRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

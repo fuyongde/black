@@ -2,8 +2,8 @@ package com.jason.black.service.impl;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.jason.black.dto.RegionDto;
-import com.jason.black.entity.Region;
+import com.jason.black.domain.dto.RegionDto;
+import com.jason.black.domain.entity.Region;
 import com.jason.black.exception.ServiceException;
 import com.jason.black.repository.jdbc.RegionJdbcDao;
 import com.jason.black.repository.jpa.RegionDao;

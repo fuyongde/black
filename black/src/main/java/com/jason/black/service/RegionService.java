@@ -1,7 +1,7 @@
 package com.jason.black.service;
 
-import com.jason.black.dto.RegionDto;
-import com.jason.black.entity.Region;
+import com.jason.black.domain.dto.RegionDto;
+import com.jason.black.domain.entity.Region;
 
 import java.util.List;
 

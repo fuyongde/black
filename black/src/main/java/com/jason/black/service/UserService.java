@@ -1,6 +1,6 @@
 package com.jason.black.service;
 
-import com.jason.black.entity.User;
+import com.jason.black.domain.entity.User;
 
 /**
  * Created by fuyongde on 2016/11/12.

@@ -2,7 +2,7 @@ package com.jason.black.client;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jason.black.dto.UserRegisterDto;
+import com.jason.black.domain.dto.UserRegisterDto;
 import com.jason.black.handler.ErrorResult;
 import okhttp3.*;
 import okhttp3.MediaType;

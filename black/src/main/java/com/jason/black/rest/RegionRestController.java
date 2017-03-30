@@ -1,7 +1,7 @@
 package com.jason.black.rest;
 
-import com.jason.black.dto.RegionDto;
-import com.jason.black.entity.Region;
+import com.jason.black.domain.dto.RegionDto;
+import com.jason.black.domain.entity.Region;
 import com.jason.black.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

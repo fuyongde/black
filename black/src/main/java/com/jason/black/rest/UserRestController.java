@@ -1,7 +1,7 @@
 package com.jason.black.rest;
 
-import com.jason.black.dto.UserRegisterDto;
-import com.jason.black.entity.User;
+import com.jason.black.domain.dto.UserRegisterDto;
+import com.jason.black.domain.entity.User;
 import com.jason.black.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

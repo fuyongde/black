@@ -1,4 +1,4 @@
-package com.jason.black.entity;
+package com.jason.black.domain.entity;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 

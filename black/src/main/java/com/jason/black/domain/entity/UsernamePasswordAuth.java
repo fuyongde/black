@@ -1,6 +1,6 @@
-package com.jason.black.entity;
+package com.jason.black.domain.entity;
 
-import com.jason.black.entity.base.BaseEntity;
+import com.jason.black.domain.entity.base.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

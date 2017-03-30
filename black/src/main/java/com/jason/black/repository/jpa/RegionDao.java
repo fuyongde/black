@@ -1,6 +1,6 @@
 package com.jason.black.repository.jpa;
 
-import com.jason.black.entity.Region;
+import com.jason.black.domain.entity.Region;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
