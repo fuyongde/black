@@ -17,7 +17,6 @@ import static org.apache.commons.lang3.builder.ToStringStyle.JSON_STYLE;
 public class ServiceException extends RuntimeException {
 
     private int errorCode;
-    private String errorMessage;
 
     private static Logger logger = LoggerFactory.getLogger(ServiceException.class);
 
@@ -33,18 +32,13 @@ public class ServiceException extends RuntimeException {
     }
 
     public ServiceException() {
-        super();
+        super(properties.getProperty(String.valueOf(100000)));
+        this.errorCode = 100000;
     }
 
     public ServiceException(int errorCode) {
-        String errorMessage = properties.getProperty(String.valueOf(errorCode));
+        super(properties.getProperty(String.valueOf(errorCode)));
         this.errorCode = errorCode;
-        this.errorMessage = errorMessage;
-    }
-
-    public ServiceException(int errorCode, String errorMessage) {
-        this.errorCode = errorCode;
-        this.errorMessage = errorMessage;
     }
 
     public int getErrorCode() {
@@ -53,14 +47,6 @@ public class ServiceException extends RuntimeException {
 
     public void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
     }
 
     @Override

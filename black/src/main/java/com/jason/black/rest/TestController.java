@@ -1,8 +1,11 @@
 package com.jason.black.rest;
 
+import com.jason.black.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.ExecutorService;
@@ -41,5 +44,25 @@ public class TestController {
         executorService.execute(()->javaMailSender.send(mailMessage));
 
         return "success";
+    }
+
+    @GetMapping(value = "/testNull")
+    public String testNullPointException() {
+        throw new NullPointerException();
+    }
+
+    @GetMapping(value = "/testService")
+    public String testServiceException() {
+        throw new ServiceException();
+    }
+
+    @GetMapping(value = "/testMedia", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String testMediaTypeNotSupportedException() {
+        return "Success";
+    }
+
+    @GetMapping(value = "/testMiss")
+    public String testMissingPathVariableException() throws MissingPathVariableException {
+        throw new MissingPathVariableException(null, null);
     }
 }
