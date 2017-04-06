@@ -1,10 +1,10 @@
 package com.jason.black.service.impl;
 
 import com.jason.black.domain.entity.User;
-import com.jason.black.domain.entity.UsernamePasswordAuth;
+import com.jason.black.domain.entity.PasswordAuth;
 import com.jason.black.exception.ServiceException;
-import com.jason.black.repository.jpa.UserDao;
-import com.jason.black.repository.jpa.UsernamePasswordAuthDao;
+import com.jason.black.repository.jpa.UserDAO;
+import com.jason.black.repository.jpa.PasswordAuthDAO;
 import com.jason.black.service.UserService;
 import com.jason.black.utils.Digests;
 import com.jason.black.utils.Encodes;
@@ -30,15 +30,15 @@ public class UserServiceImpl implements UserService {
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
-    private UserDao userDao;
+    private UserDAO userDAO;
     @Autowired
-    private UsernamePasswordAuthDao usernamePasswordAuthDao;
+    private PasswordAuthDAO passwordAuthDAO;
 
     @Override
     @Transactional
     public User register(String username, String password) {
         //先判断用户名是否存在
-        UsernamePasswordAuth auth = usernamePasswordAuthDao.findByUsername(username);
+        PasswordAuth auth = passwordAuthDAO.findByUsername(username);
         if (auth != null) {
             throw new ServiceException();
         }
@@ -50,34 +50,29 @@ public class UserServiceImpl implements UserService {
         user.setName(username);
         user.setCreated(now);
         user.setUpdated(now);
-        userDao.save(user);
+        userDAO.save(user);
 
         byte[] salt = Digests.generateSalt(SALT_SIZE);
 
-        UsernamePasswordAuth usernamePasswordAuth = new UsernamePasswordAuth();
-        usernamePasswordAuth.setUserId(user.getId());
-        usernamePasswordAuth.setUsername(username);
+        PasswordAuth passwordAuth = new PasswordAuth();
+        passwordAuth.setUserId(user.getId());
+        passwordAuth.setUsername(username);
         try {
-            usernamePasswordAuth.setPassword(entryptPassword(password, salt));
+            passwordAuth.setPassword(entryptPassword(password, salt));
         } catch (NoSuchAlgorithmException e) {
             logger.error("Create user error, the Exception message is {}", e.getMessage());
             throw new ServiceException();
         }
-        usernamePasswordAuth.setSalt(Encodes.encodeHex(salt));
-        usernamePasswordAuth.setCreated(now);
-        usernamePasswordAuth.setUpdated(now);
-        usernamePasswordAuthDao.save(usernamePasswordAuth);
+        passwordAuth.setSalt(Encodes.encodeHex(salt));
+        passwordAuth.setCreated(now);
+        passwordAuth.setUpdated(now);
+        passwordAuthDAO.save(passwordAuth);
         return user;
     }
 
     @Override
     public User getById(String id) {
-        return userDao.findOne(id);
-    }
-
-    @Override
-    public void testServiceException() {
-        throw new ServiceException(100000);
+        return userDAO.findOne(id);
     }
 
     /**

@@ -13,7 +13,7 @@ import java.util.List;
  * Created by fuyongde on 2016/11/12.
  */
 @Component
-public class RegionJdbcDao {
+public class RegionJdbcDAO {
 
     @Resource
     private JdbcTemplate jdbcTemplate;

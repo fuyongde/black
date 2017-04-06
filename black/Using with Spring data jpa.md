@@ -73,7 +73,7 @@ public interface RegionDao extends PagingAndSortingRepository<Region, Integer>, 
 package com.jason.black.service.impl;
 
 import com.jason.black.domain.entity.Region;
-import com.jason.black.repository.jpa.RegionDao;
+import com.jason.black.repository.jpa.RegionDAO;
 import com.jason.black.service.RegionService;
 import org.springframework.stereotype.Service;
 

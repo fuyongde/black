@@ -43,11 +43,4 @@ public class UserRestController {
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/test")
-    public String testServiceException() {
-        userService.testServiceException();
-        return "success";
-    }
-
-
 }

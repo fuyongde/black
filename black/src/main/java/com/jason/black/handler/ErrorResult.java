@@ -1,5 +1,7 @@
 package com.jason.black.handler;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -69,6 +71,11 @@ public class ErrorResult implements Serializable {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }
 

@@ -1,15 +1,13 @@
 package com.jason.black.rest;
 
 import com.jason.black.exception.ServiceException;
+import com.jason.black.service.MailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Created by fuyongde on 2017/3/24.
@@ -18,10 +16,10 @@ import java.util.concurrent.Executors;
 @RequestMapping(value = "/api/test")
 public class TestController {
 
-    private static ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private static Logger logger = LoggerFactory.getLogger(TestController.class);
 
     @Autowired
-    private MailSender javaMailSender;
+    private MailService mailService;
 
     @GetMapping
     public String test() {
@@ -35,14 +33,15 @@ public class TestController {
             @RequestParam(name = "subject") String subject,
             @RequestParam(name = "text") String text
     ) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom(from);
-        mailMessage.setTo(to);
-        mailMessage.setSubject(subject);
-        mailMessage.setText(text);
+        mailService.sendMail(from, to, subject, text);
+        return "success";
+    }
 
-        executorService.execute(()->javaMailSender.send(mailMessage));
-
+    @PostMapping(value = "/sendActivationCode")
+    public String sendActivationCode(
+            @RequestParam(name = "to") String to
+    ) {
+        mailService.sendActivationCode(to);
         return "success";
     }
 
@@ -58,7 +57,7 @@ public class TestController {
 
     @GetMapping(value = "/testMedia", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String testMediaTypeNotSupportedException() {
-        return "Success";
+        return "success";
     }
 
     @GetMapping(value = "/testMiss")

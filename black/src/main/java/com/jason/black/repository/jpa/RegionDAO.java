@@ -6,7 +6,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface RegionDao extends PagingAndSortingRepository<Region, Integer>, JpaSpecificationExecutor<Region> {
+public interface RegionDAO extends PagingAndSortingRepository<Region, Integer>, JpaSpecificationExecutor<Region> {
 
     /**
      * 根据父级id，查询地区列表

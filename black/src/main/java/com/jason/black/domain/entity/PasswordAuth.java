@@ -13,7 +13,7 @@ import java.io.Serializable;
  * Created by fuyongde on 2016/11/12.
  */
 @Entity
-public class UsernamePasswordAuth extends BaseEntity implements Serializable {
+public class PasswordAuth extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
