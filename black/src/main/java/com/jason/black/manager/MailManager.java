@@ -7,5 +7,5 @@ public interface MailManager {
 
     void sendMail(String from, String to, String subject, String text);
 
-    void sendActivationCode(String to);
+    void sendActivationCode(String to, Integer authCode);
 }

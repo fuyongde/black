@@ -1,6 +1,8 @@
 package com.jason.black.domain.entity;
 
 import com.jason.black.domain.entity.base.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,6 +22,7 @@ public class User extends BaseEntity implements Serializable {
     private Long birthday;
     private Integer age;
     private Integer status;
+    private Integer regionId;
 
     public String getId() {
         return id;
@@ -84,4 +87,46 @@ public class User extends BaseEntity implements Serializable {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    public Integer getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(Integer regionId) {
+        this.regionId = regionId;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
+
+    public enum UserStatus {
+        normal(1, "正常"),
+        authed(2, "已认证");
+        int status;
+        String desc;
+
+        UserStatus(int status, String desc) {
+            this.status = status;
+            this.desc = desc;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
+    }
 }
+

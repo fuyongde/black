@@ -1,9 +1,12 @@
 package com.jason.black.rest;
 
+import com.jason.black.domain.param.AuthParam;
 import com.jason.black.domain.param.RegisterParam;
 import com.jason.black.domain.entity.User;
 import com.jason.black.service.UserService;
 import com.jason.black.utils.BeanValidators;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -47,6 +50,19 @@ public class UserRestController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uri);
         return new ResponseEntity(headers, HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/sendAuthCode")
+    public ResponseEntity<?> sendAuthCode(@RequestBody AuthParam authParam) {
+        BeanValidators.validateWithException(validator, authParam);
+        userService.sendAuthMail(authParam.getUserId(), authParam.getEmail());
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping(value = "/auth")
+    public ResponseEntity<?> auth(String userId, Integer code) {
+        userService.auth(userId, code);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }

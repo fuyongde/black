@@ -24,4 +24,7 @@ public interface UserService {
      */
     User getById(String id);
 
+    void sendAuthMail(String userId, String email);
+
+    void auth(String userId, Integer code);
 }

@@ -41,13 +41,12 @@ public class MailManagerImpl implements MailManager {
 
     @Override
     @Async
-    public void sendActivationCode(String to) {
+    public void sendActivationCode(String to, Integer authCode) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("fuyongde@126.com");
         mailMessage.setTo(to);
         mailMessage.setSubject("激活码");
-        Integer activationCode = RandomUtils.nextInt(1000, 9999);
-        mailMessage.setText(String.valueOf(activationCode));
+        mailMessage.setText(String.valueOf(authCode));
         try {
             javaMailSender.send(mailMessage);
         } catch (MailException e) {

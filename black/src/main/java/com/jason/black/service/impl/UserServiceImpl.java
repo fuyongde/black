@@ -1,15 +1,19 @@
 package com.jason.black.service.impl;
 
-import com.jason.black.domain.entity.User;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.jason.black.domain.entity.PasswordAuth;
+import com.jason.black.domain.entity.User;
 import com.jason.black.exception.ServiceException;
-import com.jason.black.repository.jpa.UserDAO;
+import com.jason.black.manager.MailManager;
 import com.jason.black.repository.jpa.PasswordAuthDAO;
+import com.jason.black.repository.jpa.UserDAO;
 import com.jason.black.service.UserService;
 import com.jason.black.utils.Clock;
 import com.jason.black.utils.Digests;
 import com.jason.black.utils.Encodes;
 import com.jason.black.utils.Identities;
+import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by fuyongde on 2016/11/12.
@@ -31,17 +38,21 @@ public class UserServiceImpl implements UserService {
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private static Clock clock = Clock.DEFAULT;
 
+    private static Cache<String, Integer> authCodeCache = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();
+
     @Autowired
     private UserDAO userDAO;
     @Autowired
     private PasswordAuthDAO passwordAuthDAO;
+    @Autowired
+    private MailManager mailManager;
 
     @Override
     @Transactional
     public User register(String username, String password) {
         //先判断用户名是否存在
         PasswordAuth auth = passwordAuthDAO.findByUsername(username);
-        if (auth != null) {
+        if (Objects.nonNull(auth)) {
             throw new ServiceException();
         }
 
@@ -52,6 +63,7 @@ public class UserServiceImpl implements UserService {
         user.setName(username);
         user.setCreated(now);
         user.setUpdated(now);
+        user.setStatus(User.UserStatus.normal.getStatus());
         userDAO.save(user);
 
         byte[] salt = Digests.generateSalt(SALT_SIZE);
@@ -75,6 +87,51 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(String id) {
         return userDAO.findOne(id);
+    }
+
+    @Override
+    @Transactional
+    public void sendAuthMail(String userId, String email) {
+        User user = getById(userId);
+        if (Objects.isNull(user)) {
+            //用户不存在
+            throw new ServiceException(200000);
+        }
+        if (user.getStatus() != User.UserStatus.normal.getStatus()) {
+            //用户已认证
+            throw new ServiceException(200002);
+        }
+        int authCode = RandomUtils.nextInt(1000, 9999);
+        authCodeCache.put(userId, authCode);
+        user.setEmail(email);
+        user.setUpdated(clock.getCurrentTimeInMillis());
+        mailManager.sendActivationCode(email, authCode);
+        userDAO.save(user);
+    }
+
+    @Override
+    @Transactional
+    public void auth(String userId, Integer code) {
+        User user = getById(userId);
+        if (Objects.isNull(user)) {
+            //用户不存在
+            throw new ServiceException(200000);
+        }
+        if (user.getStatus() != User.UserStatus.normal.getStatus()) {
+            //用户已认证
+            throw new ServiceException(200002);
+        }
+        try {
+            Integer authCode = authCodeCache.get(userId, () -> 0);
+            if (Objects.isNull(authCode) || authCode.intValue() != code.intValue()) {
+                throw new ServiceException(200003);
+            }
+            user.setStatus(User.UserStatus.authed.getStatus());
+            userDAO.save(user);
+            authCodeCache.invalidate(userId);
+        } catch (ExecutionException e) {
+            throw new ServiceException(200003);
+        }
     }
 
     /**
