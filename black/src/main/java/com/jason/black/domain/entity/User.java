@@ -19,6 +19,7 @@ public class User extends BaseEntity implements Serializable {
     private String idcard;
     private Long birthday;
     private Integer age;
+    private Integer status;
 
     public String getId() {
         return id;
@@ -74,5 +75,13 @@ public class User extends BaseEntity implements Serializable {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

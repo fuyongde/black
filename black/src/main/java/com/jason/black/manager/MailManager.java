@@ -1,9 +1,9 @@
-package com.jason.black.service;
+package com.jason.black.manager;
 
 /**
  * Created by fuyongde on 2017/4/6.
  */
-public interface MailService {
+public interface MailManager {
 
     void sendMail(String from, String to, String subject, String text);
 

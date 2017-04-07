@@ -1,6 +1,6 @@
-package com.jason.black.service.impl;
+package com.jason.black.manager.impl;
 
-import com.jason.black.service.MailService;
+import com.jason.black.manager.MailManager;
 import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
  * Created by fuyongde on 2017/4/6.
  */
 @Component
-public class MailServiceImpl implements MailService {
+public class MailManagerImpl implements MailManager {
 
-    private static Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(MailManagerImpl.class);
 
     @Autowired
     private MailSender javaMailSender;

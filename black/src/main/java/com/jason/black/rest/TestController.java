@@ -1,13 +1,18 @@
 package com.jason.black.rest;
 
+import com.jason.black.domain.dto.TestDto;
 import com.jason.black.exception.ServiceException;
-import com.jason.black.service.MailService;
+import com.jason.black.manager.MailManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validator;
+import java.util.Set;
 
 /**
  * Created by fuyongde on 2017/3/24.
@@ -19,7 +24,10 @@ public class TestController {
     private static Logger logger = LoggerFactory.getLogger(TestController.class);
 
     @Autowired
-    private MailService mailService;
+    private MailManager mailManager;
+
+    @Autowired
+    private Validator validator;
 
     @GetMapping
     public String test() {
@@ -33,7 +41,7 @@ public class TestController {
             @RequestParam(name = "subject") String subject,
             @RequestParam(name = "text") String text
     ) {
-        mailService.sendMail(from, to, subject, text);
+        mailManager.sendMail(from, to, subject, text);
         return "success";
     }
 
@@ -41,8 +49,17 @@ public class TestController {
     public String sendActivationCode(
             @RequestParam(name = "to") String to
     ) {
-        mailService.sendActivationCode(to);
+        mailManager.sendActivationCode(to);
         return "success";
+    }
+
+    @PostMapping(value = "/testValidate", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public TestDto testValidate(@RequestBody TestDto testDto) {
+        Set constraintViolations = validator.validate(testDto);
+        if (!constraintViolations.isEmpty()) {
+            throw new ConstraintViolationException(constraintViolations);
+        }
+        return testDto;
     }
 
     @GetMapping(value = "/testNull")
