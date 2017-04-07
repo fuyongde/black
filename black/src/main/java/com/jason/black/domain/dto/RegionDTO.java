@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by fuyongde on 2016/12/28.
  */
-public class RegionDto implements Serializable {
+public class RegionDTO implements Serializable {
 
     private Integer id;
     private Integer parentId;
@@ -17,7 +17,7 @@ public class RegionDto implements Serializable {
     private Integer level;
     private Boolean leaf;
 
-    private List<RegionDto> child;
+    private List<RegionDTO> child;
 
     public Integer getId() {
         return id;
@@ -59,11 +59,11 @@ public class RegionDto implements Serializable {
         this.leaf = leaf;
     }
 
-    public List<RegionDto> getChild() {
+    public List<RegionDTO> getChild() {
         return child;
     }
 
-    public void setChild(List<RegionDto> child) {
+    public void setChild(List<RegionDTO> child) {
         this.child = child;
     }
 

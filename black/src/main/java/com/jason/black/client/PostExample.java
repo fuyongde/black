@@ -2,7 +2,7 @@ package com.jason.black.client;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jason.black.domain.dto.UserRegisterDto;
+import com.jason.black.domain.param.RegisterParam;
 import com.jason.black.handler.ErrorResult;
 import okhttp3.*;
 import okhttp3.MediaType;
@@ -19,7 +19,7 @@ public class PostExample {
     OkHttpClient client = new OkHttpClient();
 
     Response post(String url) throws IOException {
-        UserRegisterDto user = new UserRegisterDto();
+        RegisterParam user = new RegisterParam();
         user.setUsername("fuyongqi");
         user.setPassword("fuyongqi");
 

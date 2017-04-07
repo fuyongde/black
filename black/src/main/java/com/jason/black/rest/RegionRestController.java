@@ -1,6 +1,6 @@
 package com.jason.black.rest;
 
-import com.jason.black.domain.dto.RegionDto;
+import com.jason.black.domain.dto.RegionDTO;
 import com.jason.black.domain.entity.Region;
 import com.jason.black.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,8 @@ public class RegionRestController {
      * @return
      */
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public RegionDto getRegionById(@PathVariable("id") Integer id) {
-        RegionDto result = regionService.getById(id);
+    public RegionDTO getRegionById(@PathVariable("id") Integer id) {
+        RegionDTO result = regionService.getById(id);
         return result;
     }
 
@@ -39,8 +39,8 @@ public class RegionRestController {
      * @return
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<RegionDto> getRegionByParentId(@RequestParam(name = "parentId") Integer parentId) {
-        List<RegionDto> result = regionService.getByParentId(parentId);
+    public List<RegionDTO> getRegionByParentId(@RequestParam(name = "parentId") Integer parentId) {
+        List<RegionDTO> result = regionService.getByParentId(parentId);
         return result;
     }
 

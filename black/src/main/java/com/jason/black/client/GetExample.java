@@ -3,7 +3,7 @@ package com.jason.black.client;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jason.black.domain.dto.RegionDto;
+import com.jason.black.domain.dto.RegionDTO;
 import com.jason.black.handler.ErrorResult;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -34,9 +34,9 @@ public class GetExample {
         Response response = example.run("http://localhost:8080/black/api/users/test");
         if (response.isSuccessful()) {
             String result = response.body().string();
-            JavaType javaType = mapper.getTypeFactory().constructCollectionType(List.class, RegionDto.class);
-            List<RegionDto> regionDtos = mapper.readValue(result, javaType);
-            regionDtos.forEach(System.out::print);
+            JavaType javaType = mapper.getTypeFactory().constructCollectionType(List.class, RegionDTO.class);
+            List<RegionDTO> regionDTOS = mapper.readValue(result, javaType);
+            regionDTOS.forEach(System.out::print);
         } else if (response.code() == HttpStatus.INTERNAL_SERVER_ERROR.value()){
             String error = response.body().string();
             ErrorResult errorResult = mapper.readValue(error, ErrorResult.class);

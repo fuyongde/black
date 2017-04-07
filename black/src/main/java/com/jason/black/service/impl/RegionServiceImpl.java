@@ -2,7 +2,7 @@ package com.jason.black.service.impl;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.jason.black.domain.dto.RegionDto;
+import com.jason.black.domain.dto.RegionDTO;
 import com.jason.black.domain.entity.Region;
 import com.jason.black.exception.ServiceException;
 import com.jason.black.repository.jdbc.RegionJdbcDAO;
@@ -33,17 +33,17 @@ public class RegionServiceImpl implements RegionService {
     private static Cache<Integer, List<Region>> regionListCache = CacheBuilder.newBuilder().maximumSize(500).build();
 
     @Override
-    public RegionDto getById(Integer id) {
+    public RegionDTO getById(Integer id) {
         try {
             Region region = regionCache.get(id, ()-> regionDAO.findOne(id));
             DozerBeanMapper mapper = new DozerBeanMapper();
-            RegionDto regionDto = mapper.map(region, RegionDto.class);
+            RegionDTO regionDTO = mapper.map(region, RegionDTO.class);
             if (!region.getLeaf()) {
                 List<Region> regions = regionListCache.get(region.getId(), () -> regionDAO.findByParentId(region.getId()));
-                List<RegionDto> regionDtos = mapper.map(regions, List.class);
-                regionDto.setChild(regionDtos);
+                List<RegionDTO> regionDTOS = mapper.map(regions, List.class);
+                regionDTO.setChild(regionDTOS);
             }
-            return regionDto;
+            return regionDTO;
         } catch (ExecutionException e) {
             throw new ServiceException(100001);
         }
@@ -55,12 +55,12 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public List<RegionDto> getByParentId(Integer parentId) {
+    public List<RegionDTO> getByParentId(Integer parentId) {
         try {
             List<Region> regions = regionListCache.get(parentId, () -> regionDAO.findByParentId(parentId));
             DozerBeanMapper mapper = new DozerBeanMapper();
-            List<RegionDto> regionDtos = mapper.map(regions, List.class);
-            return regionDtos;
+            List<RegionDTO> regionDTOS = mapper.map(regions, List.class);
+            return regionDTOS;
         } catch (ExecutionException e) {
             throw new ServiceException(100001);
         }

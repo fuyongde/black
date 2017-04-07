@@ -6,6 +6,7 @@ import com.jason.black.exception.ServiceException;
 import com.jason.black.repository.jpa.UserDAO;
 import com.jason.black.repository.jpa.PasswordAuthDAO;
 import com.jason.black.service.UserService;
+import com.jason.black.utils.Clock;
 import com.jason.black.utils.Digests;
 import com.jason.black.utils.Encodes;
 import com.jason.black.utils.Identities;
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService {
     private static final int SALT_SIZE = 8;
 
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static Clock clock = Clock.DEFAULT;
 
     @Autowired
     private UserDAO userDAO;
@@ -43,7 +45,7 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException();
         }
 
-        long now = System.currentTimeMillis();
+        long now = clock.getCurrentTimeInMillis();
         //保存用户信息
         User user = new User();
         user.setId(Identities.genId());

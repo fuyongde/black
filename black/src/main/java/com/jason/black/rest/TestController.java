@@ -1,15 +1,18 @@
 package com.jason.black.rest;
 
-import com.jason.black.domain.dto.TestDto;
+import com.jason.black.domain.param.TestParam;
 import com.jason.black.exception.ServiceException;
 import com.jason.black.manager.MailManager;
+import com.jason.black.utils.BeanValidators;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 import java.util.Set;
@@ -46,20 +49,15 @@ public class TestController {
     }
 
     @PostMapping(value = "/sendActivationCode")
-    public String sendActivationCode(
-            @RequestParam(name = "to") String to
-    ) {
+    public String sendActivationCode(@RequestParam(name = "to") String to) {
         mailManager.sendActivationCode(to);
         return "success";
     }
 
     @PostMapping(value = "/testValidate", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public TestDto testValidate(@RequestBody TestDto testDto) {
-        Set constraintViolations = validator.validate(testDto);
-        if (!constraintViolations.isEmpty()) {
-            throw new ConstraintViolationException(constraintViolations);
-        }
-        return testDto;
+    public TestParam testValidate(@RequestBody TestParam testParam) {
+        BeanValidators.validateWithException(validator, testParam);
+        return testParam;
     }
 
     @GetMapping(value = "/testNull")

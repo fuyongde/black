@@ -1,11 +1,11 @@
-package com.jason.black.domain.dto;
+package com.jason.black.domain.param;
 
 import org.hibernate.validator.constraints.Length;
 
 /**
  * Created by fuyongde on 2017/4/7.
  */
-public class TestDto {
+public class TestParam {
     @Length(min = 6, max = 16)
     private String username;
     @Length(min = 6, max = 16)

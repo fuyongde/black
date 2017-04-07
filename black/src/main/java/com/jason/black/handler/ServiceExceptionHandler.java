@@ -1,9 +1,7 @@
 package com.jason.black.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Maps;
-import com.google.gson.Gson;
 import com.jason.black.exception.ServiceException;
+import com.jason.black.utils.BeanValidators;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -12,16 +10,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.*;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.time.Clock;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -63,10 +58,7 @@ public class ServiceExceptionHandler extends ResponseEntityExceptionHandler {
     public final ResponseEntity<?> handleException(ConstraintViolationException ex, WebRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        Map<String, String> errorMessages = Maps.newHashMap();
-        for (ConstraintViolation violation : ex.getConstraintViolations()) {
-            errorMessages.put(violation.getPropertyPath().toString(), violation.getMessage());
-        }
+        Map<String, String> errorMessages = BeanValidators.extractPropertyAndMessage(ex);
         return handleExceptionInternal(ex, errorMessages, headers, HttpStatus.BAD_REQUEST, request);
     }
 }

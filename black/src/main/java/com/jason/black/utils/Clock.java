@@ -6,6 +6,14 @@ import java.util.Date;
  * Created by fuyongde on 2016/8/31.
  */
 public interface Clock {
+
+    long ONE_MILLIS = 1l;
+    long ONE_SECOND = ONE_MILLIS * 1000;
+    long ONE_MINUTE = ONE_SECOND * 60;
+    long ONE_HOUR = ONE_MINUTE * 60;
+    long ONE_DAY = ONE_HOUR * 24;
+    long ONE_WEEK = ONE_DAY * 7;
+
     enum Type {
         MILLIS, SECOND, MINUTE, HOUR, DAY
     }
@@ -29,8 +37,30 @@ public interface Clock {
      * @param type
      * @return
      */
-    long getTimestamp(Type type);
-
+    default long getTimestamp(Type type) {
+        long timestamp;
+        switch (type) {
+            case MILLIS:
+                timestamp = getCurrentTimeInMillis();
+                break;
+            case SECOND:
+                timestamp = getCurrentTimeInMillis() / ONE_SECOND;
+                break;
+            case MINUTE:
+                timestamp = getCurrentTimeInMillis() / ONE_MINUTE;
+                break;
+            case HOUR:
+                timestamp = getCurrentTimeInMillis() / ONE_HOUR;
+                break;
+            case DAY:
+                timestamp = getCurrentTimeInMillis() / ONE_DAY;
+                break;
+            default:
+                timestamp = getCurrentTimeInMillis();
+                break;
+        }
+        return timestamp;
+    }
 
     /**
      * 默认时间提供者，返回当前的时间，线程安全。
@@ -47,30 +77,6 @@ public interface Clock {
             return System.currentTimeMillis();
         }
 
-        @Override
-        public long getTimestamp(Type type) {
-            long timestamp = 0;
-            switch (type) {
-                case MILLIS:
-                    timestamp = getCurrentTimeInMillis();
-                    break;
-                case SECOND:
-                    timestamp = getCurrentTimeInMillis() / 1000;
-                    break;
-                case MINUTE:
-                    timestamp = getCurrentTimeInMillis() / (1000 * 60);
-                    break;
-                case HOUR:
-                    timestamp = getCurrentTimeInMillis() / (1000 * 60 * 60);
-                    break;
-                case DAY:
-                    timestamp = getCurrentTimeInMillis() / (1000 * 60 * 60 * 24);
-                    break;
-                default:
-                    break;
-            }
-            return timestamp;
-        }
     }
 
     /**
@@ -100,31 +106,6 @@ public interface Clock {
         @Override
         public long getCurrentTimeInMillis() {
             return time;
-        }
-
-        @Override
-        public long getTimestamp(Type type) {
-            long timestamp = 0;
-            switch (type) {
-                case MILLIS:
-                    timestamp = getCurrentTimeInMillis();
-                    break;
-                case SECOND:
-                    timestamp = getCurrentTimeInMillis() / 1000;
-                    break;
-                case MINUTE:
-                    timestamp = getCurrentTimeInMillis() / (1000 * 60);
-                    break;
-                case HOUR:
-                    timestamp = getCurrentTimeInMillis() / (1000 * 60 * 60);
-                    break;
-                case DAY:
-                    timestamp = getCurrentTimeInMillis() / (1000 * 60 * 60 * 24);
-                    break;
-                default:
-                    break;
-            }
-            return timestamp;
         }
 
         /**

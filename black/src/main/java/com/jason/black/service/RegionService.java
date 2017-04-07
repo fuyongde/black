@@ -1,6 +1,6 @@
 package com.jason.black.service;
 
-import com.jason.black.domain.dto.RegionDto;
+import com.jason.black.domain.dto.RegionDTO;
 import com.jason.black.domain.entity.Region;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public interface RegionService {
      * @param id the id
      * @return the by id
      */
-    RegionDto getById(Integer id);
+    RegionDTO getById(Integer id);
 
     /**
      * Create region.
@@ -31,5 +31,5 @@ public interface RegionService {
      * @param parentId the parent id
      * @return the by parent id
      */
-    List<RegionDto> getByParentId(Integer parentId);
+    List<RegionDTO> getByParentId(Integer parentId);
 }
