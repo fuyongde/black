@@ -1,14 +1,20 @@
 package com.jason.black.rest;
 
+import com.jason.black.domain.param.RegisterParam;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -22,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since <pre>十一月 13, 2016</pre>
  */
 @RunWith(SpringRunner.class)
+@Transactional
 @SpringBootTest
 public class UserRestControllerTest {
 
@@ -46,13 +53,16 @@ public class UserRestControllerTest {
      * Method: register(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password, UriComponentsBuilder uriBuilder)
      */
     @Test
+    @Rollback
     public void testRegister() throws Exception {
+        RegisterParam registerParam = new RegisterParam();
+        registerParam.setUsername(RandomStringUtils.random(8));
+        registerParam.setPassword(RandomStringUtils.random(8));
+
         this.mvc.perform(post("/api/users")
-                .param("username", "fuyongde")
-                .param("password", "fuyongde")
+                .content(registerParam.toString())
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isCreated());
-//                .andExpect(header().string("Location", "http://localhost/api/users/99999999"));
     }
 
 

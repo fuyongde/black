@@ -104,9 +104,8 @@ public class UserServiceImpl implements UserService {
         int authCode = RandomUtils.nextInt(1000, 9999);
         authCodeCache.put(userId, authCode);
         user.setEmail(email);
-        user.setUpdated(clock.getCurrentTimeInMillis());
+        this.update(user);
         mailManager.sendActivationCode(email, authCode);
-        userDAO.save(user);
     }
 
     @Override
@@ -127,11 +126,17 @@ public class UserServiceImpl implements UserService {
                 throw new ServiceException(200003);
             }
             user.setStatus(User.UserStatus.authed.getStatus());
-            userDAO.save(user);
+            this.update(user);
             authCodeCache.invalidate(userId);
         } catch (ExecutionException e) {
             throw new ServiceException(200003);
         }
+    }
+
+    private void update(User user) {
+        long now = clock.getCurrentTimeInMillis();
+        user.setUpdated(now);
+        userDAO.save(user);
     }
 
     /**
