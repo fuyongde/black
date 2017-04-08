@@ -3,8 +3,11 @@ package com.jason.black.domain.entity;
 import com.jason.black.domain.entity.base.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.id.GUIDGenerator;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 
@@ -14,6 +17,8 @@ import java.io.Serializable;
 @Entity
 public class User extends BaseEntity implements Serializable {
     @Id
+    @GeneratedValue(generator = "idGenerator")
+    @GenericGenerator(name = "idGenerator", strategy = "com.jason.black.utils.IdGenerator")
     private String id;
     private String name;
     private String phone;

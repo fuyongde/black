@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         long now = clock.getCurrentTimeInMillis();
         //保存用户信息
         User user = new User();
-        user.setId(Identities.genId());
+        //user.setId(Identities.genId());
         user.setName(username);
         user.setCreated(now);
         user.setUpdated(now);
