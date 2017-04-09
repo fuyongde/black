@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +16,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Component
-public class TokenInterceptor extends HandlerInterceptorAdapter {
+public class TokenInterceptor implements HandlerInterceptor {
 
     final Logger logger = LoggerFactory.getLogger(TokenInterceptor.class);
 
@@ -24,32 +26,45 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             HandlerMethod handlerMethod = (HandlerMethod) o;
             Method method = handlerMethod.getMethod();
             Token annotation = method.getAnnotation(Token.class);
-            if (annotation != null) {
-                boolean needSaveSession = annotation.save();
-                if (needSaveSession) {
-                    httpServletRequest.getSession(false).setAttribute("token", UUID.randomUUID().toString());
+            if (Objects.nonNull(annotation)) {
+                boolean needToken = annotation.get();
+                if (needToken) {
+                    String token = UUID.randomUUID().toString();
+                    httpServletRequest.getSession(true).setAttribute("token", token);
+                    httpServletResponse.addHeader("token", token);
                 }
-                boolean needRemoveSession = annotation.remove();
-                if (needRemoveSession) {
+                boolean needAuth = annotation.auth();
+                if (needAuth) {
                     if (isRepeatSubmit(httpServletRequest)) {
+                        logger.error("请勿重复提交");
                         return false;
                     }
-                    httpServletRequest.getSession(false).removeAttribute("token");
+                    httpServletRequest.getSession(true).removeAttribute("token");
                 }
             }
             return true;
         } else {
-            return super.preHandle(httpServletRequest, httpServletResponse, o);
+            return true;
         }
     }
 
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+
+    }
+
     private boolean isRepeatSubmit(HttpServletRequest request) {
-        String serverToken = (String) request.getSession(false).getAttribute("token");
+        String serverToken = (String) request.getSession(true).getAttribute("token");
         if (Objects.isNull(serverToken)) {
             return true;
         }
         String clinetToken = request.getParameter("token");
-        if (clinetToken == null) {
+        if (Objects.isNull(clinetToken)) {
             return true;
         }
         if (!serverToken.equals(clinetToken)) {

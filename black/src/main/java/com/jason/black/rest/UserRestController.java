@@ -1,5 +1,6 @@
 package com.jason.black.rest;
 
+import com.jason.black.annotations.Token;
 import com.jason.black.domain.entity.User;
 import com.jason.black.domain.param.RegisterParam;
 import com.jason.black.service.UserService;
@@ -14,7 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.validation.Valid;
 import javax.validation.Validator;
 import java.net.URI;
 
@@ -39,6 +39,7 @@ public class UserRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @Token(auth = true)
     public ResponseEntity<?> register(
             @RequestBody RegisterParam registerParam,
             UriComponentsBuilder uriBuilder

@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Token {
 
-    boolean save() default false;
+    boolean get() default false;
 
-    boolean remove() default false;
+    boolean auth() default false;
 }
