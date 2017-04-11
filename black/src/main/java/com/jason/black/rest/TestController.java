@@ -13,6 +13,7 @@ import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Validator;
+import java.util.List;
 
 /**
  * Created by fuyongde on 2017/3/24.
@@ -55,6 +56,11 @@ public class TestController {
     public TestParam testValidate(@RequestBody TestParam testParam) {
         BeanValidators.validateWithException(validator, testParam);
         return testParam;
+    }
+
+    @GetMapping(value = "testList")
+    public String testList(@RequestParam List<Integer> i) {
+        return "success";
     }
 
     @GetMapping(value = "/testNull")

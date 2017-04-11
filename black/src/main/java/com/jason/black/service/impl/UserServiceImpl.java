@@ -12,7 +12,6 @@ import com.jason.black.service.UserService;
 import com.jason.black.utils.Clock;
 import com.jason.black.utils.Digests;
 import com.jason.black.utils.Encodes;
-import com.jason.black.utils.Identities;
 import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
