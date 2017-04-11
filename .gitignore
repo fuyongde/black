@@ -1,5 +1,12 @@
+.DS_Store
+.idea/
+
 black/.idea/
 black/target/
 black/black.iml
-.DS_Store
 black/logs/
+
+auth/.idea/
+auth/target/
+auth/auth.iml
+auth/logs/

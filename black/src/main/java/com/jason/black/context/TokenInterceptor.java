@@ -1,13 +1,13 @@
 package com.jason.black.context;
 
 import com.jason.black.annotations.Token;
+import com.jason.black.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,8 +36,10 @@ public class TokenInterceptor implements HandlerInterceptor {
                 boolean needAuth = annotation.auth();
                 if (needAuth) {
                     if (isRepeatSubmit(httpServletRequest)) {
-                        logger.error("请勿重复提交");
-                        return false;
+                        String serverToken = (String) httpServletRequest.getSession(true).getAttribute("token");
+                        logger.error("请勿重复提交，token:{}", serverToken);
+                        throw new ServiceException(200004);
+                        //return false;
                     }
                     httpServletRequest.getSession(true).removeAttribute("token");
                 }

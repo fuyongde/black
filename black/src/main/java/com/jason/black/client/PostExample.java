@@ -20,13 +20,13 @@ public class PostExample {
 
     Response post(String url) throws IOException {
         RegisterParam user = new RegisterParam();
-        user.setUsername("fuyongqi");
-        user.setPassword("fuyongqi");
+        user.setUsername("liangchaoshui");
+        user.setPassword("liangchaoshui");
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonParam = mapper.writeValueAsString(user);
 
-        RequestBody formBody = new FormBody.Builder().add("username", "fuhongwei").add("password", "fuhongwei").build();
+        RequestBody formBody = new FormBody.Builder().add("username", "liangchaoshui").add("password", "liangchaoshui").build();
         RequestBody jsonBody = RequestBody.create(JSON, jsonParam);
 
         Request request = new Request.Builder()
