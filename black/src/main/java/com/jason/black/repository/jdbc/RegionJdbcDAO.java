@@ -18,6 +18,12 @@ public class RegionJdbcDAO {
     @Resource
     private JdbcTemplate jdbcTemplate;
 
+    /**
+     * Find by id region.
+     *
+     * @param id the id
+     * @return the region
+     */
     public Region findById(Integer id) {
         StringBuffer sql = new StringBuffer();
         List<Object> val = Lists.newArrayList();

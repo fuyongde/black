@@ -1,6 +1,9 @@
 package com.jason.black.context;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.jason.black.annotations.Token;
+import com.jason.black.domain.entity.Region;
 import com.jason.black.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +22,8 @@ import java.util.UUID;
 public class TokenInterceptor implements HandlerInterceptor {
 
     final Logger logger = LoggerFactory.getLogger(TokenInterceptor.class);
+
+    private static Cache<String, String> regionCache = CacheBuilder.newBuilder().build();
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
@@ -39,7 +44,6 @@ public class TokenInterceptor implements HandlerInterceptor {
                         String serverToken = (String) httpServletRequest.getSession(true).getAttribute("token");
                         logger.error("请勿重复提交，token:{}", serverToken);
                         throw new ServiceException(200004);
-                        //return false;
                     }
                     httpServletRequest.getSession(true).removeAttribute("token");
                 }

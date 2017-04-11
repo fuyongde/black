@@ -24,7 +24,19 @@ public interface UserService {
      */
     User getById(String id);
 
+    /**
+     * Send auth mail.
+     *
+     * @param userId the user id
+     * @param email  the email
+     */
     void sendAuthMail(String userId, String email);
 
+    /**
+     * Auth.
+     *
+     * @param userId the user id
+     * @param code   the code
+     */
     void auth(String userId, Integer code);
 }
