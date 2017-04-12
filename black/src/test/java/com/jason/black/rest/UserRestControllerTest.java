@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -50,7 +52,8 @@ public class UserRestControllerTest {
         this.mvc.perform(get("/api/users/FBJEE40EB").accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.name").value("fuyongde"));
+                .andExpect(jsonPath("$.name").value("fuyongde"))
+                .andDo(MockMvcResultHandlers.print());
     }
 
     /**
@@ -64,10 +67,15 @@ public class UserRestControllerTest {
         registerParam.setUsername(RandomStringUtils.random(8));
         registerParam.setPassword(RandomStringUtils.random(8));
 
+        MvcResult tokenResult = mvc.perform(get("/api/commons/token")).andReturn();
+        String token = tokenResult.getResponse().getHeader("Token");
+
         this.mvc.perform(post("/api/users")
+                .header("Token", token)
                 .content(registerParam.toString())
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
@@ -75,7 +83,8 @@ public class UserRestControllerTest {
     @Rollback
     public void testAuthCode() throws Exception {
         this.mvc.perform(get("/api/users/FBJEE40EB/auth").param("email", "fuyongde@foxmail.com"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isNoContent())
+                .andDo(MockMvcResultHandlers.print());
     }
 
 }

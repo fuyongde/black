@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/commons")
 public class CommonRestController {
 
+    /**
+     * 用于产生防止重复提交的token
+     * Gets token.
+     */
     @GetMapping(value = "/token")
     @Token(get = true)
     public void getToken() {}

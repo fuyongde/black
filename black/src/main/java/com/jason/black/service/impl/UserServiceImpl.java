@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         //先判断用户名是否存在
         PasswordAuth auth = passwordAuthDAO.findByUsername(username);
         if (Objects.nonNull(auth)) {
-            throw new ServiceException();
+            throw new ServiceException(200001);
         }
 
         long now = clock.getCurrentTimeInMillis();

@@ -32,6 +32,8 @@ public class ServiceExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = {ServiceException.class})
     public final ResponseEntity<?> handleException(ServiceException ex, NativeWebRequest request) {
+
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         ErrorResult errorResult = new ErrorResult();
@@ -46,6 +48,8 @@ public class ServiceExceptionHandler extends ResponseEntityExceptionHandler {
         if (request.getNativeRequest() instanceof HttpServletRequest) {
             HttpServletRequest req = (HttpServletRequest) request.getNativeRequest();
             errorResult.setPath(req.getServletPath());
+            logger.error("Access Error : {}, Error Message", req.getRequestURI(), ex.getMessage());
+            logger.error("Error Stack : {}", ex.getStackTrace());
         }
 
         return handleExceptionInternal(ex, errorResult, headers, HttpStatus.INTERNAL_SERVER_ERROR, request);

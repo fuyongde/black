@@ -44,6 +44,13 @@ public class RegionRestController {
         return result;
     }
 
+    /**
+     * Create response entity.
+     *
+     * @param region     the region
+     * @param uriBuilder the uri builder
+     * @return the response entity
+     */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> create(@RequestBody Region region, UriComponentsBuilder uriBuilder) {
         // 保存地区

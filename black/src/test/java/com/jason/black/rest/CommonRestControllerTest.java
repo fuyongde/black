@@ -1,5 +1,6 @@
 package com.jason.black.rest;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,12 +14,18 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * CommonRestController Tester.
+ *
+ * @author fuyongde
+ * @version 1.0
+ * @since <pre>4 12, 2017</pre>
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RegionRestControllerTest {
+public class CommonRestControllerTest {
 
     private MockMvc mvc;
 
@@ -26,17 +33,23 @@ public class RegionRestControllerTest {
     private WebApplicationContext context;
 
     @Before
-    public void before() {
+    public void before() throws Exception {
         this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
     }
 
+    @After
+    public void after() throws Exception {
+    }
+
+    /**
+     * Method: getToken()
+     */
     @Test
-    public void testGetRegionById() throws Exception {
-        this.mvc.perform(get("/api/regions/110000").accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+    public void testGetToken() throws Exception {
+        this.mvc.perform(get("/api/commons/token"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.name").value("北京市"))
                 .andDo(MockMvcResultHandlers.print());
     }
+
 
 } 
