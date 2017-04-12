@@ -8,7 +8,7 @@
 		</encoder>
 	</appender>
 
-	<appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<appender name="infoFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>logs\black.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<fileNamePattern>logs\black.%d{yyyy-MM-dd}.log</fileNamePattern>
@@ -16,11 +16,34 @@
 		<encoder>
 			<pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
 	</appender>
 
-	<logger name="com.jason.black" level="INFO">
-		<appender-ref ref="STDOUT" />
-		<appender-ref ref="rollingFile" />
-	</logger>
+	<appender name="errorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>error_logs\black_error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>error_logs\black_error.%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+	</appender>
+
+    <logger name="com.jason.black" level="ERROR">
+        <appender-ref ref="errorFile" />
+    </logger>
+
+    <logger name="com.jason.black" level="INFO">
+        <appender-ref ref="infoFile" />
+    </logger>
 
 </configuration>

@@ -1,0 +1,22 @@
+16:10:51.108 [http-nio-8080-exec-2] ERROR c.j.b.h.ServiceExceptionHandler - Access Error : /black/api/test/testService, Error Message
+16:10:51.114 [http-nio-8080-exec-2] ERROR c.j.b.h.ServiceExceptionHandler - Error Stack : com.jason.black.rest.TestController.testServiceException(TestController.java:73)
+16:11:07.172 [http-nio-8080-exec-3] ERROR c.j.b.h.ServiceExceptionHandler - Access Error : /black/api/test/testService, Error Message
+16:11:07.178 [http-nio-8080-exec-3] ERROR c.j.b.h.ServiceExceptionHandler - Error Stack : com.jason.black.rest.TestController.testServiceException(TestController.java:73)
+16:14:47.922 [http-nio-8080-exec-3] ERROR c.j.b.h.ServiceExceptionHandler - Access Error : /black/api/test/testService, Error Message
+16:14:47.928 [http-nio-8080-exec-3] ERROR c.j.b.h.ServiceExceptionHandler - Error Stack : com.jason.black.rest.TestController.testServiceException(TestController.java:73)
+16:18:06.918 [http-nio-8080-exec-1] ERROR c.j.b.h.ServiceExceptionHandler - Access Error : /black/api/test/testService, Error Message
+16:18:06.919 [http-nio-8080-exec-1] ERROR c.j.b.h.ServiceExceptionHandler - Error Stack : com.jason.black.rest.TestController.testServiceException(TestController.java:73)
+16:21:43.278 [http-nio-8080-exec-2] ERROR c.j.b.h.ServiceExceptionHandler - Access Error : /black/api/test/testService, Error Message
+16:21:43.284 [http-nio-8080-exec-2] ERROR c.j.b.h.ServiceExceptionHandler - Error Stack : com.jason.black.rest.TestController.testServiceException(TestController.java:73)
+16:21:54.394 [http-nio-8080-exec-3] ERROR c.j.b.h.ServiceExceptionHandler - Access Error : /black/api/test/testService, Error Message
+16:21:54.399 [http-nio-8080-exec-3] ERROR c.j.b.h.ServiceExceptionHandler - Error Stack : com.jason.black.rest.TestController.testServiceException(TestController.java:73)
+16:21:55.769 [http-nio-8080-exec-4] ERROR c.j.b.h.ServiceExceptionHandler - Access Error : /black/api/test/testService, Error Message
+16:21:55.773 [http-nio-8080-exec-4] ERROR c.j.b.h.ServiceExceptionHandler - Error Stack : com.jason.black.rest.TestController.testServiceException(TestController.java:73)
+16:21:55.993 [http-nio-8080-exec-5] ERROR c.j.b.h.ServiceExceptionHandler - Access Error : /black/api/test/testService, Error Message
+16:21:55.998 [http-nio-8080-exec-5] ERROR c.j.b.h.ServiceExceptionHandler - Error Stack : com.jason.black.rest.TestController.testServiceException(TestController.java:73)
+16:21:56.183 [http-nio-8080-exec-6] ERROR c.j.b.h.ServiceExceptionHandler - Access Error : /black/api/test/testService, Error Message
+16:21:56.187 [http-nio-8080-exec-6] ERROR c.j.b.h.ServiceExceptionHandler - Error Stack : com.jason.black.rest.TestController.testServiceException(TestController.java:73)
+16:21:56.381 [http-nio-8080-exec-7] ERROR c.j.b.h.ServiceExceptionHandler - Access Error : /black/api/test/testService, Error Message
+16:21:56.385 [http-nio-8080-exec-7] ERROR c.j.b.h.ServiceExceptionHandler - Error Stack : com.jason.black.rest.TestController.testServiceException(TestController.java:73)
+16:23:39.732 [http-nio-8080-exec-1] ERROR c.j.b.h.ServiceExceptionHandler - Access Error : /black/api/test/testService, Error Message
+16:23:39.732 [http-nio-8080-exec-1] ERROR c.j.b.h.ServiceExceptionHandler - Error Stack : com.jason.black.rest.TestController.testServiceException(TestController.java:73)
