@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -17,6 +18,7 @@ import java.util.Arrays;
  * Created by fuyongde on 2017/4/12.
  */
 @Aspect
+@Component
 public class WebLogAspect {
 
     private static Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
