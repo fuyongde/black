@@ -32,8 +32,6 @@ public class ServiceExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(value = {ServiceException.class})
     public final ResponseEntity<?> handleException(ServiceException ex, NativeWebRequest request) {
-
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         ErrorResult errorResult = new ErrorResult();
