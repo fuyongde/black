@@ -4,11 +4,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:quickstart
-    username: sa
-    password: sa
-    driver-class-name: org.h2.Driver
-    schema: classpath:sql/user.sql
+    url: jdbc:mysql://localhost/quickstart?useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: root
+    password: fuyongde
+    driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update

@@ -1,6 +1,4 @@
-CREATE DATABASE `quickstart`;
-
-USE `quickstart`;
+USE `testdb`;
 
 DROP TABLE IF EXISTS `user`;
 
