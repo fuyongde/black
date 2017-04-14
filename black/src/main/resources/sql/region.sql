@@ -1,18 +1,11 @@
-/*
-SQLyog Ultimate v12.08 (64 bit)
-MySQL - 5.6.34 
-*********************************************************************
-*/
-use quickstart;
-/*!40101 SET NAMES utf8 */;
+CREATE TABLE `region` (
+  `id` int(11) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `name` varchar(384) DEFAULT NULL,
+  `level` smallint(6) DEFAULT NULL,
+  `leaf` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-create table `region` (
-	`id` int (11),
-	`parent_id` int (11),
-	`name` varchar (384),
-	`level` smallint (6),
-	`leaf` bit (1)
-); 
 insert into `region` (`id`, `parent_id`, `name`, `level`, `leaf`) values('110000','0','北京市','1','');
 insert into `region` (`id`, `parent_id`, `name`, `level`, `leaf`) values('110100','110000','市辖区','2','');
 insert into `region` (`id`, `parent_id`, `name`, `level`, `leaf`) values('110101','110100','东城区','3','');

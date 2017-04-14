@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  context-path: /black
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:quickstart
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+    schema: classpath:sql/user.sql
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mail:
+    host: smtp.126.com
+    username: fuyongde@126.com
+    password: de2441009fu
+    default-encoding: UTF-8
+
+logging:
+  config: classpath:logback-spring.xml
