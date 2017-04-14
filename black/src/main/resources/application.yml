@@ -17,6 +17,13 @@ spring:
     username: fuyongde@126.com
     password: de2441009fu
     default-encoding: UTF-8
+  http:
+    converters:
+      preferred-json-mapper: jackson
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: non_null
+
 
 logging:
   config: classpath:logback-spring.xml
