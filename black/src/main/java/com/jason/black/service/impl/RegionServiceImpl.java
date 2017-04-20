@@ -98,7 +98,7 @@ public class RegionServiceImpl implements RegionService, InitializingBean {
         List<Region> results = Lists.newArrayList();
         while (!nodeDeque.isEmpty()) {
             node = nodeDeque.removeFirst();
-            List<Region> children = getChild(regions, node);
+            List<Region> children = getChildren(regions, node);
             results.add(node);
             if (!CollectionUtils.isEmpty(children)) {
                 children.forEach(region -> nodeDeque.offer(region));
@@ -125,7 +125,7 @@ public class RegionServiceImpl implements RegionService, InitializingBean {
         List<Region> results = Lists.newArrayList();
         while (!nodeStack.isEmpty()) {
             node = nodeStack.pop();
-            List<Region> children = getChild(regions, node);
+            List<Region> children = getChildren(regions, node);
             results.add(node);
             if (!CollectionUtils.isEmpty(children)) {
                 children.forEach(region -> nodeStack.push(region));
@@ -135,7 +135,7 @@ public class RegionServiceImpl implements RegionService, InitializingBean {
         return results;
     }
 
-    public List<Region> getChild(List<Region> allData, Region parent) {
+    public List<Region> getChildren(List<Region> allData, Region parent) {
         return allData.stream()
             .filter(region -> region.getParentId().intValue() == parent.getId().intValue())
             .collect(Collectors.toList());

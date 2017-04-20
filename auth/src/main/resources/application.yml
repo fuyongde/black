@@ -1,0 +1,13 @@
+server:
+  port: 8081
+  context-path: /auth
+
+security:
+  oauth2:
+    client:
+      client-id: fuyongde
+      client-secret: fuyongde
+  user:
+    name: fuyongde
+    password: fuyongde
+
