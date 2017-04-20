@@ -2,23 +2,34 @@ package com.jason.black.service.impl;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.jason.black.domain.dto.RegionDTO;
 import com.jason.black.domain.entity.Region;
 import com.jason.black.exception.ServiceException;
 import com.jason.black.repository.jdbc.RegionJdbcDAO;
 import com.jason.black.repository.jpa.RegionDAO;
 import com.jason.black.service.RegionService;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Map;
+import java.util.Stack;
+import java.util.stream.Collectors;
+import javax.persistence.criteria.CriteriaBuilder.In;
 import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import org.springframework.util.CollectionUtils;
+import sun.java2d.pipe.RegionIterator;
 
 @Service
-public class RegionServiceImpl implements RegionService {
+public class RegionServiceImpl implements RegionService, InitializingBean {
 
     @Resource
     private RegionDAO regionDAO;
@@ -27,6 +38,8 @@ public class RegionServiceImpl implements RegionService {
     private RegionJdbcDAO regionJdbcDAO;
 
     private static Logger logger = LoggerFactory.getLogger(RegionServiceImpl.class);
+
+    private static Cache<Integer, Region> allRegionCache = CacheBuilder.newBuilder().build();
 
     private static Cache<Integer, Region> regionCache = CacheBuilder.newBuilder().maximumSize(1000).build();
 
@@ -64,5 +77,79 @@ public class RegionServiceImpl implements RegionService {
         } catch (ExecutionException e) {
             throw new ServiceException(100001);
         }
+    }
+
+    @Override
+    public List<Region> getAllLeaf(Integer parentId) {
+        return breadth(parentId);
+    }
+
+    /**
+     * Breadth list (广度优先遍历).
+     *
+     * @param parentId the parent id
+     * @return the list
+     */
+    private List<Region> breadth(Integer parentId) {
+        Map<Integer, Region> allRegionMap = allRegionCache.asMap();
+        List<Region> regions = Lists.newArrayList();
+        for (Map.Entry<Integer, Region> entry : allRegionMap.entrySet()) {
+            regions.add(entry.getValue());
+        }
+        Deque<Region> nodeDeque = new ArrayDeque<>();
+        Region node = allRegionMap.get(parentId);
+        nodeDeque.add(node);
+        List<Region> results = Lists.newArrayList();
+        while (!nodeDeque.isEmpty()) {
+            node = nodeDeque.removeFirst();
+            List<Region> children = getChild(regions, node);
+            results.add(node);
+            if (!CollectionUtils.isEmpty(children)) {
+                children.forEach(region -> nodeDeque.offer(region));
+            }
+        }
+        return results;
+    }
+
+    /**
+     * Depth list (深度优先遍历子节点).
+     *
+     * @param parentId the parent id
+     * @return the list
+     */
+    private List<Region> depth(Integer parentId) {
+        Map<Integer, Region> allRegionMap = allRegionCache.asMap();
+        List<Region> regions = Lists.newArrayList();
+        for (Map.Entry<Integer, Region> entry : allRegionMap.entrySet()) {
+            regions.add(entry.getValue());
+        }
+        Stack<Region> nodeStack = new Stack<>();
+        Region node = allRegionMap.get(parentId);
+        nodeStack.add(node);
+        List<Region> results = Lists.newArrayList();
+        while (!nodeStack.isEmpty()) {
+            node = nodeStack.pop();
+            List<Region> children = getChild(regions, node);
+            results.add(node);
+            if (!CollectionUtils.isEmpty(children)) {
+                children.forEach(region -> nodeStack.push(region));
+            }
+        }
+
+        return results;
+    }
+
+    public List<Region> getChild(List<Region> allData, Region parent) {
+        return allData.stream()
+            .filter(region -> region.getParentId().intValue() == parent.getId().intValue())
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Iterable<Region> allRegions = regionDAO.findAll();
+        logger.info("==========================Load all Region to cache start=============================");
+        allRegions.forEach(region -> allRegionCache.put(region.getId(), region));
+        logger.info("==========================Load {} Region to cache end===============================", allRegionCache.size());
     }
 }

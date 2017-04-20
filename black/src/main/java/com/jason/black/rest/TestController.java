@@ -4,16 +4,21 @@ import com.jason.black.domain.param.TestParam;
 import com.jason.black.exception.ServiceException;
 import com.jason.black.manager.MailManager;
 import com.jason.black.utils.BeanValidators;
+import java.util.ArrayList;
+import java.util.List;
+import javax.validation.Validator;
 import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.MissingPathVariableException;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Validator;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by fuyongde on 2017/3/24.
@@ -37,10 +42,10 @@ public class TestController {
 
     @PostMapping(value = "/sendMail")
     public String sendMail(
-            @RequestParam(name = "from") String from,
-            @RequestParam(name = "to") String to,
-            @RequestParam(name = "subject") String subject,
-            @RequestParam(name = "text") String text
+        @RequestParam(name = "from") String from,
+        @RequestParam(name = "to") String to,
+        @RequestParam(name = "subject") String subject,
+        @RequestParam(name = "text") String text
     ) {
         mailManager.sendMail(from, to, subject, text);
         return "success";
@@ -56,6 +61,23 @@ public class TestController {
     public TestParam testValidate(@RequestBody TestParam testParam) {
         BeanValidators.validateWithException(validator, testParam);
         return testParam;
+    }
+
+    @GetMapping(value = "testOutOfMemoryError")
+    public void testOutOfMemoryError() {
+        ArrayList<String> list = new ArrayList();
+        while (true) {
+            list.add("a");
+        }
+    }
+
+    @GetMapping(value = "testStackOverflowError")
+    public void testStackOverflowError() {
+        test(10);
+    }
+
+    public void test(Integer integer) {
+        test(10);
     }
 
     @GetMapping(value = "testList")

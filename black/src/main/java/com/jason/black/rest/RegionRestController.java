@@ -44,6 +44,11 @@ public class RegionRestController {
         return result;
     }
 
+    @GetMapping(value = "/allLeaf/{parentId}")
+    public List<Region> getAllLeaf(@PathVariable("parentId")Integer parentId) {
+        return regionService.getAllLeaf(parentId);
+    }
+
     /**
      * Create response entity.
      *

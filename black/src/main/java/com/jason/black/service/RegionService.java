@@ -32,4 +32,12 @@ public interface RegionService {
      * @return the by parent id
      */
     List<RegionDTO> getByParentId(Integer parentId);
+
+    /**
+     * Gets all leaf.
+     *
+     * @param parentId the parent id
+     * @return the all leaf
+     */
+    List<Region> getAllLeaf(Integer parentId);
 }
