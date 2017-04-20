@@ -3,7 +3,6 @@ package com.jason.black.service.impl;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.jason.black.domain.dto.RegionDTO;
 import com.jason.black.domain.entity.Region;
 import com.jason.black.exception.ServiceException;
@@ -12,21 +11,18 @@ import com.jason.black.repository.jpa.RegionDAO;
 import com.jason.black.service.RegionService;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
-import javax.persistence.criteria.CriteriaBuilder.In;
+import javax.annotation.Resource;
 import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 import org.springframework.util.CollectionUtils;
-import sun.java2d.pipe.RegionIterator;
 
 @Service
 public class RegionServiceImpl implements RegionService, InitializingBean {
@@ -48,7 +44,7 @@ public class RegionServiceImpl implements RegionService, InitializingBean {
     @Override
     public RegionDTO getById(Integer id) {
         try {
-            Region region = regionCache.get(id, ()-> regionDAO.findOne(id));
+            Region region = regionCache.get(id, () -> regionDAO.findOne(id));
             DozerBeanMapper mapper = new DozerBeanMapper();
             RegionDTO regionDTO = mapper.map(region, RegionDTO.class);
             if (!region.getLeaf()) {
@@ -148,8 +144,8 @@ public class RegionServiceImpl implements RegionService, InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         Iterable<Region> allRegions = regionDAO.findAll();
-        logger.info("==========================Load all Region to cache start=============================");
+        logger.info("=======================Load all Region to cache start==========================");
         allRegions.forEach(region -> allRegionCache.put(region.getId(), region));
-        logger.info("==========================Load {} Region to cache end===============================", allRegionCache.size());
+        logger.info("=======================Load {} Region to cache end============================", allRegionCache.size());
     }
 }

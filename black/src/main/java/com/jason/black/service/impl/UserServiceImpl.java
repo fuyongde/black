@@ -4,6 +4,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.jason.black.domain.entity.PasswordAuth;
 import com.jason.black.domain.entity.User;
+import com.jason.black.domain.param.UserParam;
 import com.jason.black.exception.ServiceException;
 import com.jason.black.manager.MailManager;
 import com.jason.black.repository.jpa.PasswordAuthDAO;
@@ -12,7 +13,9 @@ import com.jason.black.service.UserService;
 import com.jason.black.utils.Clock;
 import com.jason.black.utils.Digests;
 import com.jason.black.utils.Encodes;
+import javax.persistence.Id;
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,6 +133,22 @@ public class UserServiceImpl implements UserService {
         } catch (ExecutionException e) {
             throw new ServiceException(200003);
         }
+    }
+
+    @Override
+    public void update(String userId, UserParam userParam) {
+        User user = getById(userId);
+        if (Objects.isNull(user)) {
+            //用户不存在
+            throw new ServiceException(200000);
+        }
+        if (StringUtils.isNotBlank(userParam.getIdcard())) {
+            user.setIdcard(userParam.getIdcard());
+        }
+        if (Objects.nonNull(userParam.getRegionId())) {
+            user.setRegionId(userParam.getRegionId());
+        }
+        this.update(user);
     }
 
     private void update(User user) {

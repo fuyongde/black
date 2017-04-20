@@ -24,8 +24,6 @@ public class User extends BaseEntity implements Serializable {
     private String phone;
     private String email;
     private String idcard;
-    private Long birthday;
-    private Integer age;
     private Integer status;
     private Integer regionId;
 
@@ -67,22 +65,6 @@ public class User extends BaseEntity implements Serializable {
 
     public void setIdcard(String idcard) {
         this.idcard = idcard;
-    }
-
-    public Long getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Long birthday) {
-        this.birthday = birthday;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public Integer getStatus() {

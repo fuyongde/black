@@ -1,6 +1,7 @@
 package com.jason.black.service;
 
 import com.jason.black.domain.entity.User;
+import com.jason.black.domain.param.UserParam;
 
 /**
  * The interface User service.
@@ -39,4 +40,6 @@ public interface UserService {
      * @param code   the code
      */
     void auth(String userId, Integer code);
+
+    void update(String userId, UserParam userParam);
 }
