@@ -1,5 +1,6 @@
 package com.jason.black.manager.impl;
 
+import com.jason.black.client.Test;
 import com.jason.black.manager.MailManager;
 import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 /**
  * Created by fuyongde on 2017/4/6.
@@ -25,6 +27,10 @@ public class MailManagerImpl implements MailManager {
     @Override
     @Async
     public void sendMail(String from, String to, String subject, String text) {
+        Assert.notNull(from, "Sender is Null");
+        Assert.notNull(to, "Receiver is Null");
+        Assert.notNull(subject, "Subject is Null");
+        Assert.notNull(text, "Content is Null");
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(from);
         mailMessage.setTo(to);
@@ -42,6 +48,8 @@ public class MailManagerImpl implements MailManager {
     @Override
     @Async
     public void sendActivationCode(String to, Integer authCode) {
+        Assert.notNull(to, "Receiver is Null");
+        Assert.notNull(authCode, "AuthCode is Null");
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("fuyongde@126.com");
         mailMessage.setTo(to);
