@@ -9,9 +9,9 @@
 	</appender>
 
 	<appender name="infoFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>logs\black.log</file>
+		<file>logs/black.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>logs\black.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>logs/black.%d{yyyy-MM-dd}.log</fileNamePattern>
 		</rollingPolicy>
 		<encoder>
 			<pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
@@ -24,9 +24,9 @@
 	</appender>
 
 	<appender name="errorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>error_logs\black_error.log</file>
+		<file>error_logs/black_error.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>error_logs\black_error.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>error_logs/black_error.%d{yyyy-MM-dd}.log</fileNamePattern>
 		</rollingPolicy>
 		<encoder>
 			<pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
