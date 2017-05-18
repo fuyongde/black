@@ -8,6 +8,7 @@
     <modules>
         <module>auth</module>
         <module>black</module>
+        <module>task</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,5 +1,6 @@
 .DS_Store
 .idea/
+.project
 color.iml
 logs/
 error_logs/
@@ -9,9 +10,18 @@ black/target/
 black/black.iml
 black/logs/
 black/error_logs/
+black/.classpath
+black/.project
 
 auth/.idea/
 auth/target/
 auth/auth.iml
 auth/logs/
 auth/error_logs/
+auth/.classpath
+auth/.project
+
+task/task.iml
+task/target
+task/.classpath
+task/.project
