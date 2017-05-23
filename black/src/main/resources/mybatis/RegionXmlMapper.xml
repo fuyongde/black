@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jason.repository.mybatis.RegionXmlMapper">
+
+	<resultMap id="RegionMap" type="com.jason.black.domain.entity.Region">
+		<id column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="username" property="username" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="head" property="head" jdbcType="VARCHAR"/>
+		<result column="sex" property="sex" jdbcType="INTEGER"/>
+		<result column="phone" property="phone" jdbcType="VARCHAR"/>
+		<result column="email" property="email" jdbcType="VARCHAR"/>
+		<result column="id_card" property="idCard" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<select id="findById" resultMap="RegionMap" parameterType="java.lang.Integer">
+		SELECT * FROM region r WHERE r.id = #{id}
+	</select>
+
+</mapper>

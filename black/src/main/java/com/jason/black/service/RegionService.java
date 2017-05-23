@@ -40,4 +40,8 @@ public interface RegionService {
      * @return the all leaf
      */
     List<Region> getAllLeaf(Integer parentId);
+
+    Region getByIdMapper(Integer id);
+
+    Region getByIdXmlMapper(Integer id);
 }

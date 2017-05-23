@@ -8,6 +8,8 @@ import com.jason.black.domain.entity.Region;
 import com.jason.black.exception.ServiceException;
 import com.jason.black.repository.jdbc.RegionJdbcDAO;
 import com.jason.black.repository.jpa.RegionDAO;
+import com.jason.black.repository.mybatis.RegionMapper;
+import com.jason.black.repository.mybatis.RegionXmlMapper;
 import com.jason.black.service.RegionService;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -32,6 +34,12 @@ public class RegionServiceImpl implements RegionService, InitializingBean {
 
     @Resource
     private RegionJdbcDAO regionJdbcDAO;
+
+    @Resource
+    private RegionMapper regionMapper;
+
+    @Resource
+    private RegionXmlMapper regionXmlMapper;
 
     private static Logger logger = LoggerFactory.getLogger(RegionServiceImpl.class);
 
@@ -78,6 +86,16 @@ public class RegionServiceImpl implements RegionService, InitializingBean {
     @Override
     public List<Region> getAllLeaf(Integer parentId) {
         return breadth(parentId);
+    }
+
+    @Override
+    public Region getByIdMapper(Integer id) {
+        return regionMapper.findById(id);
+    }
+
+    @Override
+    public Region getByIdXmlMapper(Integer id) {
+        return regionXmlMapper.findById(id);
     }
 
     /**

@@ -1,24 +1,22 @@
 package com.jason.black.rest;
 
+import com.jason.black.domain.entity.Region;
 import com.jason.black.domain.param.TestParam;
 import com.jason.black.exception.ServiceException;
 import com.jason.black.manager.MailManager;
+import com.jason.black.service.RegionService;
 import com.jason.black.utils.BeanValidators;
-import java.util.ArrayList;
-import java.util.List;
-import javax.validation.Validator;
 import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.MissingPathVariableException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Validator;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by fuyongde on 2017/3/24.
@@ -34,6 +32,9 @@ public class TestController {
 
     @Autowired
     private Validator validator;
+
+    @Autowired
+    private RegionService regionService;
 
     @GetMapping
     public String test() {
@@ -104,4 +105,17 @@ public class TestController {
     public String testMissingPathVariableException() throws MissingPathVariableException {
         throw new MissingPathVariableException(null, null);
     }
+
+    /**
+     * 根据id获取地区信息
+     *
+     * @param id 地区id
+     * @return
+     */
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Region getRegionById(@PathVariable("id") Integer id) {
+        Region result = regionService.getByIdXmlMapper(id);
+        return result;
+    }
+
 }
