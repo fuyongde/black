@@ -3,18 +3,19 @@
 <mapper namespace="com.jason.black.repository.mybatis.RegionXmlMapper">
 
 	<resultMap id="RegionMap" type="com.jason.black.domain.entity.Region">
-		<id column="id" property="id" jdbcType="VARCHAR"/>
-		<result column="username" property="username" jdbcType="VARCHAR"/>
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="parent_id" property="parentId" jdbcType="INTEGER"/>
 		<result column="name" property="name" jdbcType="VARCHAR"/>
-		<result column="head" property="head" jdbcType="VARCHAR"/>
-		<result column="sex" property="sex" jdbcType="INTEGER"/>
-		<result column="phone" property="phone" jdbcType="VARCHAR"/>
-		<result column="email" property="email" jdbcType="VARCHAR"/>
-		<result column="id_card" property="idCard" jdbcType="VARCHAR"/>
+		<result column="level" property="level" jdbcType="INTEGER"/>
+		<result column="leaf" property="leaf" jdbcType="BIT"/>
 	</resultMap>
 
+	<sql id="Base_Column_List">
+    id, parent_id, `name`, `level`, leaf
+	</sql>
+
 	<select id="findById" resultMap="RegionMap" parameterType="java.lang.Integer">
-		SELECT * FROM region r WHERE r.id = #{id}
+		SELECT <include refid="Base_Column_List"/> FROM region r WHERE r.id = #{id}
 	</select>
 
 </mapper>
